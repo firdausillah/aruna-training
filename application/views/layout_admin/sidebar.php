@@ -4,7 +4,7 @@
                     <span class="app-brand-logo demo">
                         <img src="<?= base_url() ?>/assets/img/aruna-logo-gram.png" width="25" alt="">
                     </span>
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2">Aruna Vote</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2">Aruna Training</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -27,6 +27,13 @@
                     <a href="<?= base_url() ?>admin/trainer" class="menu-link">
                         <i class="menu-icon tf-icons bx bxs-user-rectangle"></i>
                         <div data-i18n="Analytics">Trainer</div>
+                    </a>
+                </li>
+                <!-- Training -->
+                <li class="menu-item">
+                    <a href="<?= base_url() ?>admin/event" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-dumbbell"></i>
+                        <div data-i18n="Analytics">Pelatihan</div>
                     </a>
                 </li>
                 <!-- E-User -->
