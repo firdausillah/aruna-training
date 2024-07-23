@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title><?= $title ? $title : '' ?> | Seblang Wangi</title>
+  <title><?= $title ? $title : '' ?> | Aruna Training</title>
 
   <meta name="description" content="" />
 
@@ -41,6 +41,10 @@
 
   <!-- Datatables -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/css/datatables.min.css" />
+
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/fontawesome/css/fontawesome.min.css" />
+  <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/fontawesome/css/regular.min.css" />
 
   <!-- Helpers -->
   <script src="<?= base_url() ?>assets/vendor/js/helpers.js"></script>
@@ -141,6 +145,10 @@
 
   <!-- Datatables -->
   <script src="<?= base_url() ?>assets/vendor/js/datatables.min.js"></script>
+
+  <!-- Fontawesome -->
+  <script src="<?= base_url() ?>assets/vendor/fontawesome/js/fontawesome.min.js"></script>
+  <script src="<?= base_url() ?>assets/vendor/fontawesome/js/regular.min.js"></script>
 
   <script src="<?= base_url() ?>assets/js/myScript.js"></script>
   <script src="<?= base_url() ?>assets/js/ui-modals.js"></script>

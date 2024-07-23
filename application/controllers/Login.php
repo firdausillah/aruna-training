@@ -18,7 +18,18 @@ class Login extends CI_Controller
 				redirect('admin/vote_data/vote_data_h');
 			}
 		}else{
-			$this->load->view('login');
+			$this->load->view('login', ['is_admin' => 0]);
+		}
+	}
+
+	public function admin()
+	{
+		if (isset($_SESSION['nama'])) {
+			if ($_SESSION['role'] == 'superadmin') {
+				redirect('admin/vote_data/vote_data_h');
+			}
+		}else{
+			$this->load->view('login', ['is_admin' => 1]);
 		}
 	}
 
@@ -26,16 +37,18 @@ class Login extends CI_Controller
 	{
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		$is_admin = $this->input->post('is_admin');
-		// print_r($is_admin);
+		$role = $this->input->post('role');
+		// print_r($_POST);
 
 		$where = [
 			'username' => $username,
 			'password' => $password,
+			'role' => $role,
 			'is_active' => 1
 		];
 		$cek = $this->AuthModel->cekLogin('users', $where)->row();
 		$test = $this->AuthModel->cekLogin('users', $where)->num_rows();
+		// print_r($cek); exit();
 		
 		if ($test > 0) {
 			$data_session = [
@@ -51,7 +64,11 @@ class Login extends CI_Controller
 			$this->session->set_flashdata(['status' => 'success', 'message' => 'Anda berhasil login']);
 			//https://youtu.be/ubLmRj8eojA jika flashdata tidak hilang otomatis
 
-			redirect('admin/vote_data/vote_data_h');
+			if ($role == 'superadmin') {
+				redirect('admin/dashboard');
+			}else{
+				redirect('admin/dashboard');
+			}
 		} else {
 			// $this->session->set_flashdata('error', 'Username atau Password salah!');
 			$this->session->set_flashdata( ['status'=>'error', 'message'=>'Username atau Password salah!']);

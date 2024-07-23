@@ -27,12 +27,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login | Aruna Vote</title>
+    <title>Registrasi | SEBLANG WANGI</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url() ?>assets/img/aruna-logo-gram.png" />
+    <link rel="icon" type="image/x-icon" href="<?= base_url() ?>assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,57 +79,54 @@
               <div class="app-brand justify-content-center">
                 <a href="index.html" class="d-flex flex-column gap-2">
                   <span class=" d-flex justify-content-center">
-                    <img src="<?= base_url('assets/img/aruna-logo-gram.png') ?>" width="50">
+                    <img src="https://ifoxsoft.com/wp-content/uploads/2022/11/PMI-Logo-Vector-PNG-%E2%80%93-IfoxSoft.Com_.webp" width="60">
                   </span>
-                  <span class="app-brand-text fs-4 text-body fw-bolder">ARUNA VOTE</span>
+                  <span class="app-brand-text fs-4 text-body fw-bolder">SEBLANG WANGI</span>
                 </a>
               </div>
-              <p>Selamat Datang! <br>Sistem informasi manajemen pelatihan </p>
-              
-              <form id="formAuthentication" class="mb-3" action="<?= base_url('login/auth') ?>" method="POST">
-                <?php if($is_admin != 1) : ?>
+              <!-- /Logo -->
+              <h5 class="mb-4">Registrasi Unit</h5>
+
+              <form id="formAuthentication" class="mb-3" action="<?= base_url('register/register_unit') ?>" method="POST">
                 <div class="mb-3">
-                  <label for="role" class="form-label">Login Sebagai</label>
-                  <select class="form-select" name="role" id="role">
-                      <option value="peserta">Peserta</option>
-                      <option value="trainer">Trainer</option>
+                  <label for="nama" class="form-label">Nama Unit <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="nama" name="nama" placeholder="" autofocus required/>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="email" name="email" required/>
+                </div>
+                <div class="mb-3">
+                  <label for="telepon" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" id="telepon" name="telepon" placeholder="Masukan Angka. Contoh: 08561426576" required/>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="password" name="password" required/>
+                </div>
+                <div class="mb-3">
+                  <label for="jenis" class="form-label">Jenis Unit <span class="text-danger">*</span></label>
+                    <select class="form-select" name="jenis" id="jenis" width="100px" required>
+                        <option value="">--Pilih--</option>
+                        <option value="PMR">PMR</option>
+                        <option value="KSR">KSR</option>
+                        <option value="TSR">TSR</option>
                     </select>
-                  </div>
-                <?php else : ?>
-                  <input type="hidden" name="role" value="superadmin">
-                <?php endif ?>
+                </div>
                 <div class="mb-3">
-                  <label for="username" class="form-label">Username/Email</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="username"
-                    name="username"
-                    placeholder="Masukan username / email"
-                    autofocus
-                  />
+                  <label for="kategori" class="form-label">Kategori Unit</label>
+                    <select class="form-select" name="kategori" id="kategori" width="100px">
+                        <option value="">--Pilih--</option>
+                        <option value="MULA">MULA</option>
+                        <option value="MADYA">MADYA</option>
+                        <option value="WIRA">WIRA</option>
+                    </select>
                 </div>
-                <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
-                  </div>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">Register</button>
                 </div>
-                <div class="mb-3 d-flex flex-column gap-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
-                  <?php if ($is_admin != '1') :?>
-                    <button type="button" class="btn btn-outline-primary d-grid w-100" data-bs-toggle="modal" data-bs-target="#form_vote_data_h">Daftar</button>
-                  <?php endif ?>
+                <div class="mb-3">
+                  <a class="btn btn-secondary d-grid w-100" type="" href="<?=base_url('login')?>">Batal</a>
                 </div>
               </form>
 
@@ -141,32 +138,6 @@
     </div>
 
     <!-- / Content -->
-
-    <div class="modal fade" id="form_vote_data_h" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <?= form_open_multipart(base_url('admin/vote_data/vote_data_h/save')) ?>
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalCenterTitle">Masukan Token Pelatihan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" name="id" id="id" value="">
-                <div class="mb-3">
-                    <label class="form-label" for="token">Token <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="token" id="token" value="" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    Batal
-                </button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
