@@ -22,7 +22,6 @@
             <select class="form-select" name="role" id="role" width="100px" required>
                 <option value="">--Pilih--</option>
                 <option <?= @$user->role == 'superadmin' ? 'selected' : '' ?> value='superadmin'>Superadmin</option>
-                <option <?= @$user->role == 'udd' ? 'selected' : '' ?> value='udd'>UDD</option>
             </select>
         </div>
         <a href="<?= base_url() ?>admin/user" class="btn btn-secondary">Batal</a>

@@ -27,7 +27,7 @@ class User extends CI_Controller
         if ($page == 'index') {
             $data = [
                 'title' => 'User',
-                $this->defaultVariable => $this->defaultModel->get()->result(),
+                $this->defaultVariable => $this->defaultModel->findBy(['role' => 'superadmin'])->result(),
                 'content' => $this->url_index . '/table'
             ];
 

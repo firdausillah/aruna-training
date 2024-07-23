@@ -5,6 +5,16 @@
 	{
 		parent::__construct();
 	}
+
+	function add_additional()
+	{
+		$user_id = $_SESSION['id'];
+		date_default_timezone_set('Asia/Jakarta');
+		return $data = [
+			'created_by' => $user_id,
+			'created_on' => date('Y-m-d H:i:s')
+		];
+	}
  	
  	function get(){
  		return $this->db->get('users');
@@ -16,7 +26,9 @@
  	}
 
  	function add($data){
- 		return $this->db->insert('users',$data);
+		$additional_data = $this->add_additional();
+		$this->db->insert('users', $additional_data + $data);
+ 		return $this->db->insert_id();
  	}
  	
  	function update($id,$data){

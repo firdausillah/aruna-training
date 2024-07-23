@@ -11,6 +11,7 @@ class Trainer extends CI_Controller
         parent::__construct();
         $this->load->model('TrainerModel', 'defaultModel');
         $this->load->model('RawModel');
+        $this->load->model('UserModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
 
@@ -28,7 +29,9 @@ class Trainer extends CI_Controller
         if ($page == 'index') {
             $data = [
                 'title' => 'Trainer',
-                $this->defaultVariable => $this->defaultModel->get()->result(),
+                $this->defaultVariable => $this->RawModel->sqlRaw(
+                    'SELECT a.id, a.kode, a.foto, a.nomor_telepon, a.email, a.specialization, b.nama, b.username, b.password, b.role FROM trainers a LEFT JOIN users b on a.id_user = b.id WHERE a.is_active = 1'
+                )->result(),
                 'content' => $this->url_index . '/table'
             ];
 
@@ -47,7 +50,7 @@ class Trainer extends CI_Controller
             $data = [
                 'title' => 'Edit Data',
                 $this->defaultVariable => $this->RawModel->sqlRaw(
-                    'SELECT a.nama, a.kode, a.foto, a.nomor_telepon, a.email, b.username, b.password, b.role FROM trainer a LEFT JOIN users b on a.id_user = b.id WHERE a.id = '.$id
+                    'SELECT a.id, a.kode, a.foto, a.nomor_telepon, a.email, a.specialization, b.nama, b.username, b.password, b.role FROM trainers a LEFT JOIN users b on a.id_user = b.id WHERE a.is_active = 1 AND a.id = '.$id
                 )->row(),
                 'content' => $this->url_index . '/form',
                 'cropper' => 'components/cropper',
@@ -80,36 +83,47 @@ class Trainer extends CI_Controller
             );
         }
 
-        $data = [
+        // Data User
+        $userData = [
+            'nama' => $this->input->post('nama'),
+            'username' => $this->input->post('username'),
+            'password' => $this->input->post('password'),
+            // 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
             'is_active' => 1,
-            'nama'  => $this->input->post('nama'),
-            'keterangan'  => $this->input->post('keterangan'),
-            'tahun_perolehan'  => $this->input->post('tahun_perolehan'),
-            'nilai_perolehan'  => $this->input->post('nilai_perolehan'),
-            'sumber'  => $this->input->post('sumber'),
-            'merk'  => $this->input->post('merk'),
-            'type'  => $this->input->post('type'),
-            'serial_number'  => $this->input->post('serial_number'),
-            'jumlah'  => $this->input->post('jumlah'),
-            'kondisi'  => $this->input->post('kondisi'),
-            'pengguna'  => $this->input->post('pengguna'),
-            'foto'  => $foto,
-            'jenis_aset'  => 'kantor'
+            'role' => 'Trainer'
+        ];
+
+        // Data Trainer
+        $trainerData = [
+            'email' => $this->input->post('email'),
+            'nomor_telepon' => $this->input->post('nomor_telepon'),
+            'specialization' => $this->input->post('specialization'),
+            'foto' => $foto,
+            'is_active' => 1
         ];
 
         if (empty($id)) {
-            unset($id);
-            if ($this->defaultModel->add($data)) {
-                $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dimasukan']);
-                redirect(base_url($this->url_index));
+            // Insert User dan Trainer baru
+            $userId = $this->UserModel->add($userData);
+            if ($userId) {
+                $trainerData['id_user'] = $userId;
+                if ($this->defaultModel->add($trainerData)) {
+                    $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dimasukan']);
+                    redirect(base_url($this->url_index));
+                }
             }
-            exit($this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']));
+            $this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
         } else {
-            if ($this->defaultModel->update(['id' => $id], $data)) {
-                $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-                redirect(base_url($this->url_index));
+            // Update User dan Trainer
+            $trainer = $this->defaultModel->findBy(['id' => $id])->row();
+            if ($trainer) {
+                $this->UserModel->update(['id' => $trainer->id_user], $userData);
+                if ($this->defaultModel->update(['id' => $id], $trainerData)) {
+                    $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil diupdate']);
+                    redirect(base_url($this->url_index));
+                }
             }
-            exit($this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']));
+            $this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
         }
     }
 

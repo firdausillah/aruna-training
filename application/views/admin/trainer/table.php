@@ -11,7 +11,9 @@
                     <th>No.</th>
                     <th>Nama</th>
                     <th>Username</th>
-                    <th>Role</th>
+                    <th>Whatsapp</th>
+                    <th width="10%">Spesifikasi</th>
+                    <th>Foto</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -21,10 +23,14 @@
                         <td><?= $index + 1 ?></td>
                         <td><?= $item->nama ?></td>
                         <td><?= $item->username ?></td>
-                        <td><?= $item->role ?></td>
+                        <td><?= $item->nomor_telepon ?></td>
+                        <td><?= $item->specialization ?></td>
                         <td>
-                            <a class="text-info" href="<?= base_url('admin/user?page=edit&id=' . $item->id) ?>"><i class="bx bx-edit-alt me-1"></i></a>
-                            <a class="text-danger" href="#" onclick="confirmDelete('<?= base_url('admin/user/nonaktif/' . $item->id) ?>')"><i class="bx bx-trash me-1"></i></a>
+                            <img src="<?= base_url('uploads/img/trainer/' . @$item->foto) ?>" height="100px" alt=""><img src="<?= $item->foto ?>" alt="">
+                        </td>
+                        <td>
+                            <a class="text-info" href="<?= base_url('admin/trainer?page=edit&id=' . $item->id) ?>"><i class="bx bx-edit-alt me-1"></i></a>
+                            <a class="text-danger" href="#" onclick="confirmDelete('<?= base_url('admin/trainer/nonaktif/' . $item->id) ?>')"><i class="bx bx-trash me-1"></i></a>
                         </td>
                     </tr>
                 <?php endforeach ?>
