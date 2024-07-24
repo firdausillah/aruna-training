@@ -10,6 +10,9 @@ class Event extends CI_Controller
     {
         parent::__construct();
         $this->load->model('EventModel', 'defaultModel');
+        $this->load->model('Event_trainerModel');
+        $this->load->model('TrainerModel');
+        $this->load->model('RawModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
 
@@ -57,131 +60,16 @@ class Event extends CI_Controller
             $data = [
                 'title' => 'Detail Data',
                 $this->defaultVariable => $this->defaultModel->findBy(['id' => $id])->row(),
-                'event_unit' => $this->Event_unitModel->findBy(['id_event' => $id, 'is_active != ' => 0])->result(),
+                'trainers' => $this->TrainerModel->get()->result(),
                 'content' => $this->url_index . '/detail'
             ];
-            // print_r($data['unit_peserta']);
+            // print_r($data['trainers']);
             // exit();
 
             $this->load->view('layout_admin/base', $data);
         }
     }
-
-    public function getPeserta()
-    {
-        if ($_GET['id_event_unit'] != null) {
-            $data = [
-                'id_event_unit' => $_GET['id_event_unit'],
-                'is_active' => 1
-            ];
-            echo json_encode(['data' => $this->Event_pesertaModel->findBy($data)->result_array()]);
-        } else {
-            echo json_encode([]);
-        }
-    }
-
-    public function getPendamping()
-    {
-        if ($_GET['id_event_unit'] != null) {
-            $data = [
-                'id_event_unit' => $_GET['id_event_unit'],
-                'is_active' => 1
-            ];
-            echo json_encode(['data' => $this->Event_pendampingModel->findBy($data)->result_array()]);
-        } else {
-            echo json_encode([]);
-        }
-    }
-
-    public function getUnitArray()
-    {
-        if ($_GET['id_event'] != null) {
-            $data = [
-                'id_event' => $_GET['id_event'],
-                'is_active' => 1
-            ];
-            echo json_encode(['data' => $this->Event_unitModel->findBy($data)->result()]);
-        } else {
-            echo json_encode([]);
-        }
-    }
-
-    public function getUnit()
-    {
-        if ($_GET['id_event_unit'] != null) {
-            $data = [
-                'id' => $_GET['id_event_unit'],
-                'is_active' => 1
-            ];
-            echo json_encode(['data' => $this->Event_unitModel->findBy($data)->row()]);
-        } else {
-            echo json_encode([]);
-        }
-    }
-
-    public function update_status_event_unit()
-    {
-        if ($this->Event_unitModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-        }
-    }
-
-    public function update_catatan_unit()
-    {
-        // print_r($_POST); exit();
-        if ($this->Event_unitModel->update(['id' => $_POST['id_event_unit']], ['keterangan' => $_POST['event_unit_keterangan']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-            // redirect(base_url('admin/event/event?page=detail&id='.$_POST['id_event']));
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-            // redirect(base_url('admin/event/event?page=detail&id='.$_POST['id_event']));
-        }
-    }
-
-    public function update_status_event_peserta()
-    {
-        if ($this->Event_pesertaModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-        }
-    }
-
-    public function update_catatan_peserta()
-    {
-        // print_r($_POST); exit();
-        if ($this->Event_pesertaModel->update(['id' => $_POST['id_event_peserta']], ['keterangan' => $_POST['event_peserta_keterangan']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-            // redirect(base_url('admin/event/event?page=detail&id='.$_POST['id_event']));
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-            // redirect(base_url('admin/event/event?page=detail&id='.$_POST['id_event']));
-        }
-    }
-
-    public function update_status_event_pendamping()
-    {
-        if ($this->Event_pendampingModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-        }
-    }
-
-    public function update_catatan_pendamping()
-    {
-        // print_r($_POST); exit();
-        if ($this->Event_pendampingModel->update(['id' => $_POST['id_event_pendamping']], ['keterangan' => $_POST['event_pendamping_keterangan']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-            // redirect(base_url('admin/event/event?page=detail&id='.$_POST['id_event']));
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-            // redirect(base_url('admin/event/event?page=detail&id='.$_POST['id_event']));
-        }
-    }
-
+    
     public function save_file($file, $slug, $folderPath)
     {
         if (!empty($file)) { // $_FILES untuk mengambil data file

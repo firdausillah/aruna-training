@@ -17,7 +17,11 @@
 	}
  	
  	function get(){
- 		return $this->db->get('trainers');
+ 		// return $this->db->get('trainers');
+		$this->db->select('*');
+		$this->db->from('trainers');
+		$this->db->join('users', 'users.id = trainers.id_user');
+		return $this->db->get();
  	}
 
  	function findBy($id){
