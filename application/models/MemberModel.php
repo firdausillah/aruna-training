@@ -1,5 +1,5 @@
 <?php
- class UserModel extends CI_Model{
+ class MemberModel extends CI_Model{
 
 	function __construct()
 	{
@@ -8,9 +8,9 @@
 
 	function add_additional()
 	{
-		if(isset($_SESSION['id'])){
+		if (isset($_SESSION['id'])) {
 			$user_id = $_SESSION['id'];
-		}else{
+		} else {
 			$user_id = '';
 		}
 		date_default_timezone_set('Asia/Jakarta');
@@ -21,27 +21,30 @@
 	}
  	
  	function get(){
- 		return $this->db->get('users');
+ 		// return $this->db->get('members');
+		$this->db->select('*');
+		$this->db->from('members');
+		$this->db->join('users', 'users.id = members.id_user');
+		return $this->db->get();
  	}
 
  	function findBy($id){
  		$this->db->where($id);
- 		return $this->db->get('users');
+ 		return $this->db->get('members');
  	}
 
  	function add($data){
 		$additional_data = $this->add_additional();
-		$this->db->insert('users', $additional_data + $data);
- 		return $this->db->insert_id();
+		return $this->db->insert('members', $additional_data + $data);
  	}
  	
  	function update($id,$data){
  		$this->db->where($id);
- 		return $this->db->update('users',$data);
+ 		return $this->db->update('members',$data);
  	}
 
  	function delete($id){
  		$this->db->where($id);
- 		return $this->db->delete('users');
+ 		return $this->db->delete('members');
  	}
  }

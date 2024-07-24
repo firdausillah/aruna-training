@@ -426,7 +426,7 @@
                     render: function(data, type, row) {
                         return '<span>' +
                             '<a href="<?= base_url('admin/event/cetak/id_card_event_pendamping/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
-                            '<a href="#" onClick="edit_catatan_pendamping(' + data + ')" class="text-danger"><i class="bx bx-trash me-1"></i></a>' +
+                            '<a class="text-danger" href="#" onclick="return action_delete_trainer(' + row.id_trainer + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
                             '</span>'
 
                     }
@@ -498,6 +498,41 @@
             }
         });
     }
-    // END Event Trainer
 
+    function action_delete_trainer(id_trainer, id_event) {
+        Swal.fire({
+            title: "Anda yakin?",
+            text: "Data akan dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url('admin/_event/event_trainer_t/delete') ?>',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        id_trainer: id_trainer,
+                        id_event: id_event
+                    },
+                    success: function(json) {
+                        table_trainer.ajax.reload(function() {
+                            Swal.close();
+                            Toast.fire({
+                                icon: json.status,
+                                title: json.message
+                            });
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', status, error);
+                    }
+                });
+            }
+        });
+    }
+    // END Event Trainer
 </script>

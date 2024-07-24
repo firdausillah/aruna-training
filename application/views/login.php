@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login | Aruna Vote</title>
+    <title>Login | Aruna Training</title>
 
     <meta name="description" content="" />
 
@@ -81,13 +81,13 @@
                   <span class=" d-flex justify-content-center">
                     <img src="<?= base_url('assets/img/aruna-logo-gram.png') ?>" width="50">
                   </span>
-                  <span class="app-brand-text fs-4 text-body fw-bolder">ARUNA VOTE</span>
+                  <span class="app-brand-text fs-4 text-body fw-bolder">ARUNA TRAINING</span>
                 </a>
               </div>
               <p>Selamat Datang! <br>Sistem informasi manajemen pelatihan </p>
               
               <form id="formAuthentication" class="mb-3" action="<?= base_url('login/auth') ?>" method="POST">
-                <?php if($is_admin != 1) : ?>
+                <?php if ($is_admin != 1) : ?>
                 <div class="mb-3">
                   <label for="role" class="form-label">Login Sebagai</label>
                   <select class="form-select" name="role" id="role">
@@ -127,8 +127,8 @@
                 </div>
                 <div class="mb-3 d-flex flex-column gap-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
-                  <?php if ($is_admin != '1') :?>
-                    <button type="button" class="btn btn-outline-primary d-grid w-100" data-bs-toggle="modal" data-bs-target="#form_vote_data_h">Daftar</button>
+                  <?php if ($is_admin != '1') : ?>
+                    <button type="button" class="btn btn-outline-primary d-grid w-100" data-bs-toggle="modal" data-bs-target="#form_token_cek">Daftar</button>
                   <?php endif ?>
                 </div>
               </form>
@@ -142,10 +142,9 @@
 
     <!-- / Content -->
 
-    <div class="modal fade" id="form_vote_data_h" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="form_token_cek" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <?= form_open_multipart(base_url('admin/vote_data/vote_data_h/save')) ?>
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCenterTitle">Masukan Token Pelatihan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -161,9 +160,8 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Batal
                 </button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary" onclick="action_token_cek()">Submit</button>
             </div>
-            </form>
         </div>
     </div>
 </div>
@@ -192,5 +190,36 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+      function action_token_cek() {
+          let token = $('#form_token_cek #token').val();
+  
+          Loading.fire({})
+          $.ajax({
+              url: '<?= base_url('register/token_cek') ?>',
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                  token: token
+              },
+              success: function(json) {
+                  Swal.close();
+                  Toast.fire({
+                      icon: json.status,
+                      title: json.message
+                  });
+                  if(json.status != 'error'){
+                    window.location.replace('register?token='+json.message)
+                  }
+  
+                  token = '';
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error:', status, error);
+              }
+          });
+      }
+    </script>
   </body>
 </html>

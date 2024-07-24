@@ -72,9 +72,17 @@ class Event_trainer_t extends CI_Controller
         }
     }
 
-    public function delete($id)
+    public function delete()
     {
-        if ($this->defaultModel->delete(['id' => $id])) {
+        $data = [
+            'id_event' => $_POST['id_event'],
+            'id_trainer' => $_POST['id_trainer']
+        ];
+
+
+        // print_r($data); exit();
+
+        if ($this->Event_trainerModel->delete($data)) {
             echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
