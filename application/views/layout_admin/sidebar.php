@@ -36,6 +36,20 @@
                         <div data-i18n="Analytics">Pelatihan</div>
                     </a>
                 </li>
+                <!-- Master -->
+                <li class="menu-item">
+                    <a href="javascript:void(0)" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-box"></i>
+                        <div data-i18n="Master">Master</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="<?= base_url() ?>admin/materi" class="menu-link">
+                                <div data-i18n="Materi">Materi</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- E-User -->
                 <li class="menu-item">
                     <a href="<?= base_url() ?>admin/user" class="menu-link">

@@ -152,6 +152,9 @@
                     <div class="tab-pane fade" id="kegiatan" role="tabpanel">
                         <div class="d-flex justify-content-between">
                             <h5 class="my-auto">Kegiatan <?= @$event->nama ?></h5>
+                            <button type="button" class="btn btn-sm btn-success" onclick="open_form_add_activity()">
+                                Tambah data
+                            </button>
                         </div>
                         <div class="table-responsive text-nowrap mt-2">
                             <table id="table_activity" class="table table-hover" width="100%">
@@ -159,7 +162,7 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama</th>
-                                        <th>Actions</th>
+                                        <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -430,6 +433,32 @@
     </div>
     <!-- END Modal Event Trainer -->
 
+    <!-- BEGIN Modal Event Activity -->
+    <div class="modal fade" id="form_add_activity" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="mb-3">
+                        <label class="form-label" for="nama">Nama Kegiatan <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary" onclick="action_form_add_activity()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal Event Activity -->
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <script type="text/javascript">
@@ -577,7 +606,7 @@
                         render: function(data, type, row) {
                             return '<span>' +
                                 '<a href="<?= base_url('admin/event/cetak/id_card_event_pendamping/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
-                                '<a class="text-danger" href="#" onclick="return action_delete_trainer(' + row.id_trainer + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
+                                '<a class="text-danger" href="#" onclick="return action_delete_activity(' + data + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
                                 '</span>'
 
                         }
@@ -593,6 +622,86 @@
 
         });
 
+        // BEGIN Event Member
+        function open_form_edit_member(id_event_member, keterangan) {
+            $("#form_edit_member").modal('show');
+            $("#form_edit_member #id_event_member").val(id_event_member);
+
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/getKeterangan?id_member=') ?>' + id_event_member,
+                type: 'POST',
+                dataType: 'json',
+                success: function(json) {
+                    if (json != undefined) {
+                        var keterangan = json.data.keterangan;
+                        $("#form_edit_member #event_member_keterangan").val(keterangan);
+                    }
+                    Swal.close()
+                }
+            });
+        }
+
+        function action_update_catatan_member() {
+            let id_event_member = $('#id_event_member').val();
+            let event_member_keterangan = $('#event_member_keterangan').val();
+
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/update_catatan') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id_event_member: id_event_member,
+                    event_member_keterangan: event_member_keterangan
+                },
+                success: function(json) {
+                    table_event_member.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+
+                    $("#form_edit_member").modal('hide');
+
+                    event_member_keterangan = '';
+                    id_event_member = '';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+
+            // $("#modalForm")[0].reset();
+        }
+
+        function action_update_status_member(id, is_approve) {
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/update_status_member') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    is_approve: is_approve
+                },
+                success: function(json) {
+                    table_event_member.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                    table_event_member.ajax.reload();
+                }
+            });
+        }
+        // END Event Member
 
         // BEGIN Event Trainer
         function open_form_add_trainer() {
@@ -686,40 +795,26 @@
         }
         // END Event Trainer
 
-        // BEGIN Event Member
-        function open_form_edit_member(id_event_member, keterangan) {
-            $("#form_edit_member").modal('show');
-            $("#form_edit_member #id_event_member").val(id_event_member);
-
-            $.ajax({
-                url: '<?= base_url('admin/_event/event_member_t/getKeterangan?id_member=') ?>' + id_event_member,
-                type: 'POST',
-                dataType: 'json',
-                success: function(json) {
-                    if (json != undefined) {
-                        var keterangan = json.data.keterangan;
-                        $("#form_edit_member #event_member_keterangan").val(keterangan);
-                    }
-                    Swal.close()
-                }
-            });
+        // BEGIN Event Activity
+        function open_form_add_activity() {
+            $("#form_add_activity").modal('show');
+            $('#form_add_activity #nama').val('');
         }
 
-        function action_update_catatan_member() {
-            let id_event_member = $('#id_event_member').val();
-            let event_member_keterangan = $('#event_member_keterangan').val();
+        function action_form_add_activity() {
+            let nama = $('#form_add_activity #nama').val();
 
             Loading.fire({})
             $.ajax({
-                url: '<?= base_url('admin/_event/event_member_t/update_catatan') ?>',
+                url: '<?= base_url('admin/_event/event_activity_t/save_event_activity') ?>',
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    id_event_member: id_event_member,
-                    event_member_keterangan: event_member_keterangan
+                    nama: nama,
+                    id_event: id_event
                 },
                 success: function(json) {
-                    table_event_member.ajax.reload(function() {
+                    table_activity.ajax.reload(function() {
                         Swal.close();
                         Toast.fire({
                             icon: json.status,
@@ -727,43 +822,50 @@
                         });
                     });
 
-                    $("#form_edit_member").modal('hide');
+                    $("#form_add_activity").modal('hide');
 
-                    event_member_keterangan = '';
-                    id_event_member = '';
+                    nama = '';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', status, error);
                 }
             });
-
-            // $("#modalForm")[0].reset();
         }
 
-        function action_update_status_member(id, is_approve) {
-            Loading.fire({})
-            $.ajax({
-                url: '<?= base_url('admin/_event/event_member_t/update_status_member') ?>',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    id: id,
-                    is_approve: is_approve
-                },
-                success: function(json) {
-                    table_event_member.ajax.reload(function() {
-                        Swal.close();
-                        Toast.fire({
-                            icon: json.status,
-                            title: json.message
-                        });
+        function action_delete_activity(id_activity, id_event) {
+            Swal.fire({
+                title: "Anda yakin?",
+                text: "Data akan dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('admin/_event/event_activity_t/delete') ?>',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id_activity: id_activity,
+                            id_event: id_event
+                        },
+                        success: function(json) {
+                            table_activity.ajax.reload(function() {
+                                Swal.close();
+                                Toast.fire({
+                                    icon: json.status,
+                                    title: json.message
+                                });
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', status, error);
+                        }
                     });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', status, error);
-                    table_event_member.ajax.reload();
                 }
             });
         }
-        // END Event Member
+        // END Event Activity
     </script>

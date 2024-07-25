@@ -34,7 +34,7 @@ class Event_activity_t extends CI_Controller
     {
         $data = [
             'id_event' => $_POST['id_event'], 
-            'id_activity' => $_POST['id_activity'], 
+            'nama' => $_POST['nama'], 
             'is_active' => 1
         ];
 
@@ -49,7 +49,7 @@ class Event_activity_t extends CI_Controller
     {
         $data = [
             'id_event' => $_POST['id_event'],
-            'id_activity' => $_POST['id_activity']
+            'id' => $_POST['id_activity']
         ];
 
 
