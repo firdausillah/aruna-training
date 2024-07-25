@@ -2,7 +2,6 @@
     <div class="d-flex justify-content-between">
         <h5 class="my-auto"><?= $title ? $title : '' ?></h5>
         <a href="<?= base_url('admin/materi?page=add') ?>" class="btn btn-sm btn-success my-auto">Tambah data</a>
-        <!-- <a href="" class="btn btn-info">Tambah data</a> -->
     </div>
     <div class="table-responsive text-nowrap mt-2">
         <table id="table_member" class="table table-hover">
