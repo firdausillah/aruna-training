@@ -5,7 +5,7 @@
                 Detail Event
             </a>
         </div>
-        <div class="collapse" id="collapseDetail" style="">
+        <div class="collapse" id="collapseDetail">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
