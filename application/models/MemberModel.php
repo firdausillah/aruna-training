@@ -22,15 +22,18 @@
  	
  	function get(){
  		// return $this->db->get('members');
-		$this->db->select('*');
+		$this->db->select('users.nama as nama, members.id as id, members.foto as foto, members.file as file, members.keterangan as keterangan, members.email as email, members.nomor_telepon as nomor_telepon, members.instansi as instansi, members.is_approve as is_approve');
 		$this->db->from('members');
 		$this->db->join('users', 'users.id = members.id_user');
 		return $this->db->get();
  	}
 
  	function findBy($id){
+		$this->db->select('users.nama as nama, members.id as id, members.foto as foto, members.file as file, members.keterangan as keterangan, members.email as email, members.nomor_telepon as nomor_telepon, members.instansi as instansi, members.is_approve as is_approve');
+		$this->db->from('members');
+		$this->db->join('users', 'users.id = members.id_user');
  		$this->db->where($id);
- 		return $this->db->get('members');
+ 		return $this->db->get();
  	}
 
  	function add($data){

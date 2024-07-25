@@ -91,8 +91,8 @@
                 <div class="mb-3">
                   <label for="role" class="form-label">Login Sebagai</label>
                   <select class="form-select" name="role" id="role">
-                      <option value="peserta">Peserta</option>
-                      <option value="trainer">Trainer</option>
+                      <option value="Member">Peserta</option>
+                      <option value="Trainer">Trainer</option>
                     </select>
                   </div>
                 <?php else : ?>

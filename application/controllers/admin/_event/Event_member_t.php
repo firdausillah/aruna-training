@@ -7,8 +7,7 @@ class Event_member_t extends CI_Controller
     {
         parent::__construct();
         $this->load->model('EventModel', 'defaultModel');
-        $this->load->model('Event_trainerModel');
-        $this->load->model('TrainerModel');
+        $this->load->model('MemberModel');
         $this->load->model('RawModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
@@ -19,54 +18,46 @@ class Event_member_t extends CI_Controller
         }
     }
 
-    public function getEventTrainer()
+    public function getEventMember()
     {
         if ($_GET['id_event'] != null) {
             $data = [
                 'id_event' => $_GET['id_event'],
-                'event_trainer_t.is_active' => 1
+                'members.is_active' => 1
             ];
-            echo json_encode(['data' => $this->Event_trainerModel->findBy($data)->result_array()]);
+            echo json_encode(['data' => $this->MemberModel->findBy($data)->result_array()]);
         } else {
             echo json_encode([]);
         }
     }
 
-    public function getOptEventTrainer()
+    public function getKeterangan()
     {
-        if ($_GET['id_event'] != null) {
-            $id_event = $_GET['id_event'];
-            $sql = 'SELECT
-                        a.id as id_trainer, b.nama as trainer_nama
-                    FROM
-                        trainers a
-                    LEFT JOIN users b ON
-                        a.id_user = b.id
-                    WHERE
-                        a.id NOT IN(
-                        SELECT
-                            c.id_trainer
-                        FROM
-                            event_trainer_t c
-                        WHERE
-                            c.id_event = ' . $id_event . ' AND c.is_active = 1
-                    ) AND a.is_active = 1';
-            echo json_encode(['data' => $this->RawModel->sqlRaw($sql)->result_array()]);
+        if ($_GET['id_member'] != null) {
+            $data = [
+                'members.id' => $_GET['id_member'],
+                'members.is_active' => 1
+            ];
+            echo json_encode(['data' => $this->MemberModel->findBy($data)->row()]);
         } else {
             echo json_encode([]);
         }
     }
 
-    public function save_event_trainer()
+    public function update_catatan()
     {
-        $data = [
-            'id_event' => $_POST['id_event'], 
-            'id_trainer' => $_POST['id_trainer'], 
-            'is_active' => 1
-        ];
+        // print_r($_POST); exit();
+        if ($this->MemberModel->update(['id' => $_POST['id_event_member']], ['keterangan' => $_POST['event_member_keterangan']])) {
+            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
+        }
+    }
 
-        if ($this->Event_trainerModel->add($data)) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil ditambahkan']);
+    public function update_status_member()
+    {
+        if ($this->MemberModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
+            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
         }
