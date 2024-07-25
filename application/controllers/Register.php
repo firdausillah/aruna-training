@@ -118,7 +118,7 @@ class Register extends CI_Controller
 			'password' => $this->input->post('password'),
 			// 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
 			'is_active' => 1,
-			'role' => 'Member'
+			'role' => 'member'
 		];
 
 		// Data Member

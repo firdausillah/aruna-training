@@ -8,7 +8,7 @@ class Dashboard extends CI_Controller
         parent::__construct();
         $this->load->model('ProfileModel');
 
-        if ($this->session->userdata('role') != 'Superadmin' && $this->session->userdata('role') != 'udd') {
+        if ($this->session->userdata('role') != 'superadmin' && $this->session->userdata('role') != 'udd') {
             redirect(base_url("login"));
         }
     }

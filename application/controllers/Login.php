@@ -64,7 +64,7 @@ class Login extends CI_Controller
 			$this->session->set_flashdata(['status' => 'success', 'message' => 'Anda berhasil login']);
 			//https://youtu.be/ubLmRj8eojA jika flashdata tidak hilang otomatis
 
-			if ($role == 'Superadmin') {
+			if ($role == 'superadmin') {
 				redirect('admin/dashboard');
 			}else{
 				redirect('member/dashboard');

@@ -154,14 +154,11 @@
                             <h5 class="my-auto">Kegiatan <?= @$event->nama ?></h5>
                         </div>
                         <div class="table-responsive text-nowrap mt-2">
-                            <table id="datatables_table2" class="table table-hover" width="100%">
+                            <table id="table_activity" class="table table-hover" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Status Pendaftaran</th>
                                         <th>Nama</th>
-                                        <th>Foto</th>
-                                        <th>Catatan</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -563,6 +560,36 @@
                 }]
             });
             // END Event Trainer
+
+            // BEGIN Event Activity
+            table_activity = $('#table_activity').DataTable({
+                responsive: true,
+                ajax: '<?= base_url('admin/_event/event_activity_t/getActivity?id_event=') ?>' + id_event,
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        data: 'nama'
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<span>' +
+                                '<a href="<?= base_url('admin/event/cetak/id_card_event_pendamping/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
+                                '<a class="text-danger" href="#" onclick="return action_delete_trainer(' + row.id_trainer + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
+                                '</span>'
+
+                        }
+                    }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }]
+            });
+            // END Event Activity
 
         });
 

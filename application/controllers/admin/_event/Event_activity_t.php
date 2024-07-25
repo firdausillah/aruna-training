@@ -1,69 +1,44 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Event_trainer_t extends CI_Controller
+class Event_activity_t extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('ActivityModel', 'defaultModel');
+        $this->load->model('ActivityModel');
         $this->load->model('RawModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
 
-        if ($this->session->userdata('role') != 'Superadmin') {
+        if ($this->session->userdata('role') != 'superadmin') {
             $this->session->set_flashdata(['status' => 'error', 'message' => 'Anda tidak memiliki izin untuk mengakses halaman ini.']);
             redirect(base_url("login"));
         }
     }
 
-    public function getEventTrainer()
+    public function getActivity()
     {
         if ($_GET['id_event'] != null) {
             $data = [
                 'id_event' => $_GET['id_event'],
-                'event_trainer_t.is_active' => 1
+                'activities.is_active' => 1
             ];
-            echo json_encode(['data' => $this->Event_trainerModel->findBy($data)->result_array()]);
+            echo json_encode(['data' => $this->ActivityModel->findBy($data)->result_array()]);
         } else {
             echo json_encode([]);
         }
     }
 
-    public function getOptEventTrainer()
-    {
-        if ($_GET['id_event'] != null) {
-            $id_event = $_GET['id_event'];
-            $sql = 'SELECT
-                        a.id as id_trainer, b.nama as trainer_nama
-                    FROM
-                        trainers a
-                    LEFT JOIN users b ON
-                        a.id_user = b.id
-                    WHERE
-                        a.id NOT IN(
-                        SELECT
-                            c.id_trainer
-                        FROM
-                            event_trainer_t c
-                        WHERE
-                            c.id_event = ' . $id_event . ' AND c.is_active = 1
-                    ) AND a.is_active = 1';
-            echo json_encode(['data' => $this->RawModel->sqlRaw($sql)->result_array()]);
-        } else {
-            echo json_encode([]);
-        }
-    }
-
-    public function save_event_trainer()
+    public function save_event_activity()
     {
         $data = [
             'id_event' => $_POST['id_event'], 
-            'id_trainer' => $_POST['id_trainer'], 
+            'id_activity' => $_POST['id_activity'], 
             'is_active' => 1
         ];
 
-        if ($this->Event_trainerModel->add($data)) {
+        if ($this->ActivityModel->add($data)) {
             echo json_encode(['status' => 'success', 'message' => 'Data berhasil ditambahkan']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
@@ -74,13 +49,13 @@ class Event_trainer_t extends CI_Controller
     {
         $data = [
             'id_event' => $_POST['id_event'],
-            'id_trainer' => $_POST['id_trainer']
+            'id_activity' => $_POST['id_activity']
         ];
 
 
         // print_r($data); exit();
 
-        if ($this->Event_trainerModel->delete($data)) {
+        if ($this->ActivityModel->delete($data)) {
             echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);

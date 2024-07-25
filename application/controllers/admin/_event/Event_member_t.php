@@ -12,7 +12,7 @@ class Event_member_t extends CI_Controller
         $this->load->helper('slug');
         $this->load->helper('upload_file');
 
-        if ($this->session->userdata('role') != 'Superadmin') {
+        if ($this->session->userdata('role') != 'superadmin') {
             $this->session->set_flashdata(['status' => 'error', 'message' => 'Anda tidak memiliki izin untuk mengakses halaman ini.']);
             redirect(base_url("login"));
         }
