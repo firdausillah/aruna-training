@@ -77,6 +77,11 @@
                             Kegiatan
                         </button>
                     </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#presensi_akumulasi" aria-controls="presensi_akumulasi" aria-selected="fasle">
+                            Presensi Akumulasi
+                        </button>
+                    </li>
                     <!-- <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#tugas" aria-controls="tugas" aria-selected="fasle">
                         Tugas
@@ -133,16 +138,18 @@
                     <div class="tab-pane fade" id="materi" role="tabpanel">
                         <div class="d-flex justify-content-between">
                             <h5 class="my-auto">Materi <?= @$event->nama ?></h5>
+                            <button type="button" class="btn btn-sm btn-success" onclick="open_form_add_materi()">
+                                Tambah data
+                            </button>
                         </div>
                         <div class="table-responsive text-nowrap mt-2">
-                            <table id="datatables_table2" class="table table-hover" width="100%">
+                            <table id="table_materi" class="table table-hover" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Status Pendaftaran</th>
-                                        <th>Nama</th>
-                                        <th>Foto</th>
-                                        <th>Catatan</th>
+                                        <th>Judul Materi</th>
+                                        <th>File</th>
+                                        <th>Akses Peserta</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -168,6 +175,23 @@
                             </table>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="presensi_akumulasi" role="tabpanel">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="my-auto">Presensi Akumulasi <?= @$event->nama ?></h5>
+                        </div>
+                        <div class="table-responsive text-nowrap mt-2">
+                            <table id="table_presensi_akumulasi" class="table table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Nama</th>
+                                        <th width="10%">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
                     <!-- <div class="tab-pane fade" id="tugas" role="tabpanel">
                     <div class="d-flex justify-content-between">
                         <h5 class="my-auto">Tugas <?= @$event->nama ?></h5>
@@ -316,56 +340,29 @@
                     <table id="table" class="table table-hover">
                         <tbody class="table-border-bottom-0">
                             <tr>
-                                <td width="20%">Nama Unit</td>
+                                <td width="20%">Nama</td>
                                 <td width="2%">:</td>
-                                <td width="70%" id="unit_nama"></td>
+                                <td width="70%" id="nama"></td>
                             </tr>
                             <tr>
-                                <td>Status Pendaftaran</td>
+                                <td>Instansi</td>
                                 <td>:</td>
-                                <td id="is_approve"></td>
+                                <td id="instansi"></td>
                             </tr>
                             <tr>
-                                <td>Kordinator</td>
+                                <td>Nomor Telepon</td>
                                 <td>:</td>
-                                <td id="kordinator_nama"></td>
+                                <td id="nomor_telepon"></td>
                             </tr>
                             <tr>
-                                <td>kontak</td>
+                                <td>Email</td>
                                 <td>:</td>
-                                <td id="kontak"></td>
+                                <td id="email"></td>
                             </tr>
                             <tr>
-                                <td>Jenis Unit</td>
+                                <td>Username</td>
                                 <td>:</td>
-                                <td id="unit_jenis"></td>
-                            </tr>
-                            <tr>
-                                <td>Tanggal Pendaftaran</td>
-                                <td>:</td>
-                                <td id="created_on"></td>
-                            </tr>
-                            <tr>
-                                <td>File Surat Tugas</td>
-                                <td>:</td>
-                                <td id="file_surat_tugas"></td>
-                            </tr>
-                            <tr>
-                                <td>Print ID Card</td>
-                                <td>:</td>
-                                <td id="cetak_id_card"></td>
-                            </tr>
-                            <tr>
-                                <td>Catatan</td>
-                                <td>:</td>
-                                <td>
-                                    <div class="input-group input-group-merge mb-2">
-                                        <input type="text" name="keterangan" id="event_unit_keterangan" value="" class="form-control">
-                                    </div>
-                                    <input type="hidden" id="id_event_unit" value="" class="form-control">
-                                    <button type="submit" id="btn_save_catatan" onclick="update_catatan_unit()" class="btn btn-sm btn-primary disabled">Simpan Catatan</button>
-
-                                </td>
+                                <td id="username"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -432,6 +429,33 @@
         </div>
     </div>
     <!-- END Modal Event Trainer -->
+
+    <!-- BEGIN Modal Event Materi -->
+    <div class="modal fade" id="form_add_materi" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="mb-3">
+                        <label class="form-label" for="nama">Judul materi <span class="text-danger">*</span></label>
+                        <select name="id_materi" id="id_materi" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary" onclick="action_form_add_materi()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal Event Materi -->
 
     <!-- BEGIN Modal Event Activity -->
     <div class="modal fade" id="form_add_activity" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -543,7 +567,10 @@
                     orderable: false,
                     className: 'select-checkbox',
                     targets: 0
-                }]
+                }],
+                rowCallback: function(row, data) {
+                    $(row).attr('data-id_member', data.id);
+                }
             });
             // END Event Trainer
 
@@ -590,6 +617,59 @@
             });
             // END Event Trainer
 
+            // BEGIN Event Materi
+            table_materi = $('#table_materi').DataTable({
+                responsive: true,
+                ajax: '<?= base_url('admin/_event/event_materi_t/getEventMateri?id_event=') ?>' + id_event,
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        data: 'nama'
+                    },
+                    {
+                        data: 'file',
+                        render: function(data, type, row) {
+                            return '<a href="<?= base_url('uploads/file/materi/') ?>' + data + '" target="_blank" class="text-black"><span class="text-info">' + data + '</span></a>'
+                        }
+
+                    },
+                    {
+                        data: 'id_materi',
+                        render: function(data, type, row) {
+                            return `<td>` +
+                                `<div class='btn-group'>` +
+                                `<button type='button' class='btn btn-sm btn-` + row.bg + ` dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='true'>` +
+                                row.akses +
+                                `</button>` +
+                                `<ul class='dropdown-menu' style='position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 39.5px, 0px);' data-popper-placement='bottom-start'>` +
+                                `<li><a class='dropdown-item' href='javascript:void(0);' onClick='action_update_akses_materi(` + data + `,1)'>Buka</a></li>` +
+                                `<li><a class='dropdown-item' href='javascript:void(0);' onClick='action_update_akses_materi(` + data + `,0)'>Tutup</a></li>` +
+                                `</ul>` +
+                                `</div>` +
+                                `</td>`
+
+                        }
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<span>' +
+                                '<a class="text-danger" href="#" onclick="return action_delete_trainer(' + row.id_trainer + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
+                                '</span>'
+
+                        }
+                    }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }]
+            });
+            // END Event Materi
+
             // BEGIN Event Activity
             table_activity = $('#table_activity').DataTable({
                 responsive: true,
@@ -620,6 +700,13 @@
             });
             // END Event Activity
 
+            $('#table_event_member').on('click', 'tbody tr', function(event) {
+                $(this).addClass('table-active').siblings().removeClass('table-active');
+                // console.log();
+                let id_member = $(this).attr('data-id_member');
+                get_bio_data(id_member);
+            });
+
         });
 
         // BEGIN Event Member
@@ -628,7 +715,7 @@
             $("#form_edit_member #id_event_member").val(id_event_member);
 
             $.ajax({
-                url: '<?= base_url('admin/_event/event_member_t/getKeterangan?id_member=') ?>' + id_event_member,
+                url: '<?= base_url('admin/_event/event_member_t/getMemberBiodata?id_member=') ?>' + id_event_member,
                 type: 'POST',
                 dataType: 'json',
                 success: function(json) {
@@ -795,6 +882,124 @@
         }
         // END Event Trainer
 
+        // BEGIN Event Materi
+        function open_form_add_materi() {
+            $("#form_add_materi").modal('show');
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_materi_t/getOptEventmateri?id_event=') ?>' + id_event,
+                type: 'POST',
+                dataType: 'json',
+                success: function(json) {
+                    if (json != undefined) {
+                        var newOptions = json.data;
+                        var select_materi = $("#form_add_materi #id_materi");
+                        select_materi.empty(); // remove old options
+                        $.each(newOptions, function(key, val) {
+                            select_materi.append($("<option></option>")
+                                .attr("value", val['id_materi']).text(val['materi_nama']));
+                        });
+                    }
+                    Swal.close()
+                }
+            });
+
+        }
+
+        function action_form_add_materi() {
+            let id_materi = $('#form_add_materi #id_materi').val();
+
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_materi_t/save_event_materi') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id_materi: id_materi,
+                    id_event: id_event
+                },
+                success: function(json) {
+                    table_materi.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+
+                    $("#form_add_materi").modal('hide');
+
+                    id_materi = '';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+        }
+
+        function action_update_akses_materi(id, is_approve) {
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/materi/update_akses_materi') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    is_approve: is_approve
+                },
+                success: function(json) {
+                    table_materi.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                    table_member.ajax.reload();
+                }
+            });
+        }
+
+        function action_delete_materi(id_materi, id_event) {
+            Swal.fire({
+                title: "Anda yakin?",
+                text: "Data akan dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('admin/_event/event_materi_t/delete') ?>',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id_materi: id_materi,
+                            id_event: id_event
+                        },
+                        success: function(json) {
+                            table_materi.ajax.reload(function() {
+                                Swal.close();
+                                Toast.fire({
+                                    icon: json.status,
+                                    title: json.message
+                                });
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', status, error);
+                        }
+                    });
+                }
+            });
+        }
+        // END Event Materi
+
         // BEGIN Event Activity
         function open_form_add_activity() {
             $("#form_add_activity").modal('show');
@@ -868,4 +1073,37 @@
             });
         }
         // END Event Activity
+
+        // BEGIN Biodata
+        function get_bio_data(id_member) {
+            Loading.fire({});
+            // ambil data unit
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/getMemberBiodata?id_member=') ?>' + id_member,
+                type: 'POST',
+                dataType: 'json',
+                success: function(json) {
+                    Swal.close();
+                    if (json != undefined) {
+                        $('#bio_data #nama').html(json.data.nama);
+                        $('#bio_data #instansi').html(json.data.instansi);
+                        $('#bio_data #nomor_telepon').html(json.data.nomor_telepon);
+                        $('#bio_data #email').html(json.data.email);
+                        $('#bio_data #username').html(json.data.username);
+                    }
+                }
+            });
+
+            // ambil data peserta
+            // dataTable.ajax.url('<?= base_url('admin/_event/getPeserta?id_member=') ?>' + id_member).load(function() {
+            //     Swal.close()
+            // });
+
+            // ambil data pendamping
+            // dataTable2.ajax.url('<?= base_url('admin/_event/getPendamping?id_member=') ?>' + id_member).load(function() {
+            //     Swal.close()
+            // });
+            // return false;
+        }
+        // END Biodata
     </script>

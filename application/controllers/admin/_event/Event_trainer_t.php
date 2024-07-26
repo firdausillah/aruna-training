@@ -8,7 +8,6 @@ class Event_trainer_t extends CI_Controller
         parent::__construct();
         $this->load->model('EventModel', 'defaultModel');
         $this->load->model('Event_trainerModel');
-        $this->load->model('TrainerModel');
         $this->load->model('RawModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');

@@ -6,7 +6,7 @@
         <?= form_open_multipart(base_url('admin/materi/save')) ?>
         <input type="hidden" name="id" value="<?= @$materi->id ?>">
         <div class="mb-3">
-            <label class="form-label" for="nama">Nama Materi <span class="text-danger">*</span></label>
+            <label class="form-label" for="nama">Judul Materi <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="nama" id="nama" value="<?= @$materi->nama ?>" required>
         </div>
         <div class="mb-3">

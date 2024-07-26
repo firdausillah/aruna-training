@@ -4,11 +4,11 @@
         <a href="<?= base_url('admin/materi?page=add') ?>" class="btn btn-sm btn-success my-auto">Tambah data</a>
     </div>
     <div class="table-responsive text-nowrap mt-2">
-        <table id="table_member" class="table table-hover">
+        <table id="table_materi" class="table table-hover">
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Nama Materi</th>
+                    <th>Judul Materi</th>
                     <th>File</th>
                     <th>Akses Peserta</th>
                     <th>Actions</th>
@@ -21,7 +21,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        table_member = $('#table_member').DataTable({
+        table_materi = $('#table_materi').DataTable({
                 responsive: true,
                 ajax: '<?= base_url('admin/materi/getMateri') ?>',
                 columns: [{
@@ -83,7 +83,7 @@
                 is_approve: is_approve
             },
             success: function(json) {
-                table_member.ajax.reload(function() {
+                table_materi.ajax.reload(function() {
                     Swal.close();
                     Toast.fire({
                         icon: json.status,
@@ -93,7 +93,7 @@
             },
             error: function(xhr, status, error) {
                 console.error('Error:', status, error);
-                table_member.ajax.reload();
+                table_materi.ajax.reload();
             }
         });
     }
