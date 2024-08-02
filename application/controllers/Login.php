@@ -62,6 +62,7 @@ class Login extends CI_Controller
 				$data_session_add =[
 					'foto'	=> $data->foto,
 					'instansi'	=> $data->instansi,
+					'id_event'	=> $data->id_event,
 					'event_nama' => $data->event_nama
 				];
 		

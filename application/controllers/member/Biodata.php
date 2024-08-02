@@ -34,7 +34,9 @@ class Biodata extends CI_Controller
                 $this->defaultVariable => $this->RawModel->sqlRaw(
                     'SELECT a.id, a.kode, a.foto, a.file, a.nomor_telepon, a.email, a.instansi,a. nomor_telepon, b.nama, b.username, b.password, b.role FROM members a LEFT JOIN users b on a.id_user = b.id WHERE a.is_active = 1 AND a.id = '. $id_user
                 )->row(),
-                'content' => $this->url_index . ''
+                'content' => $this->url_index . '',
+                'cropper' => 'components/cropper',
+                'aspect' => '3/4'
             ];
 
             $this->load->view('layout_member/base', $data);
@@ -62,6 +64,27 @@ class Biodata extends CI_Controller
             $this->load->view('layout_member/base', $data);
         }
     }
+
+    public function save_file($file, $slug, $folderPath)
+    {
+        if (!empty($file)) { // $_FILES untuk mengambil data file
+            $cfg = [
+                'upload_path' => $folderPath,
+                'allowed_types' => 'pdf',
+                'file_name' => $slug,
+                'overwrite' => (empty($file) ? FALSE : TRUE),
+                // 'max_size' => '2028',
+            ];
+            $this->load->library('upload', $cfg);
+
+            if ($this->upload->do_upload('file')) {
+                return $file_name = $this->upload->data('file_name');
+            } else {
+                exit('Error : ' . $this->upload->display_errors());
+            }
+        }
+    }
+
 
     public function save()
     {

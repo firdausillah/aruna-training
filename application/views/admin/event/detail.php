@@ -1,6 +1,6 @@
     <div class="mb-3">
         <div class="d-flex justify-content-end mb-2">
-            <a href="<?= base_url('admin/event/event') ?>" class=" btn btn-secondary me-1">Kembali</a>
+            <a href="<?= base_url('admin/event') ?>" class=" btn btn-secondary me-1">Kembali</a>
             <a class="btn btn-primary me-1 collapsed" data-bs-toggle="collapse" href="#collapseDetail" role="button" aria-expanded="false" aria-controls="collapseDetail">
                 Detail Event
             </a>
@@ -19,6 +19,11 @@
                                         <td>Nama Event</td>
                                         <td>:</td>
                                         <td><?= @$event->nama ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tempat & Tanggal Pelaksanaan</td>
+                                        <td>:</td>
+                                        <td><?= @$event->pelaksanaan_tempat .', '.  @$event->pelaksanaan_tanggal ?></td>
                                     </tr>
                                     <tr>
                                         <td>Periode Pendaftaran</td>

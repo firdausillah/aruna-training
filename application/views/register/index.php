@@ -63,80 +63,80 @@
             <!-- /Logo -->
             <h5 class="mb-4">Daftar Pelatihan</h5>
 
-            
+
             <?= form_open_multipart(base_url('register/save')) ?>
-              <input type="hidden" name="token" value="<?= $_GET['token'] ?>">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="" autofocus required />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="instansi" class="form-label">instansi</label>
-                    <input type="text" class="form-control" id="instansi" name="instansi" />
-                  </div>
+            <input type="hidden" name="token" value="<?= $_GET['token'] ?>">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="nama" name="nama" placeholder="" autofocus required />
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="nomor_telepon" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukan Angka. Contoh: 08561426576" required />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="email" name="email" required />
-                  </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="instansi" class="form-label">instansi</label>
+                  <input type="text" class="form-control" id="instansi" name="instansi" />
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="" autofocus required />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="password" name="password" required />
-                  </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="nomor_telepon" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukan Angka. Contoh: 08561426576" required />
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label" for="foto">Foto</label>
-                    <div class="input-group input-group-merge">
-                      <input class="form-control foto" type="file" name="foto">
-                    </div>
-                    <input type="hidden" class="form-control foto" type="input" name="file_foto" id="file_foto">
-                    <input type="hidden" class="form-control" value="" name="gambar">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label" for="file">File Persyaratan</label>
-                    <div class="input-group input-group-merge">
-                      <input class="form-control file" type="file" name="file">
-                    </div>
-                    <input type="hidden" class="form-control" value="" name="file_name">
-                  </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="email" name="email" required />
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="username" name="username" placeholder="" autofocus required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="password" name="password" required />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label" for="foto">Foto</label>
+                  <div class="input-group input-group-merge">
+                    <input class="form-control foto" type="file" name="foto">
+                  </div>
+                  <input type="hidden" class="form-control foto" type="input" name="file_foto" id="file_foto">
+                  <input type="hidden" class="form-control" value="" name="gambar">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label" for="file">File Persyaratan</label>
+                  <div class="input-group input-group-merge">
+                    <input class="form-control file" type="file" name="file">
+                  </div>
+                  <input type="hidden" class="form-control" value="" name="file_name">
+                </div>
+              </div>
+            </div>
 
 
-              <div class="mb-3">
-                <button class="btn btn-primary d-grid w-100" type="submit">Daftar</button>
-              </div>
-              <div class="mb-3">
-                <a class="btn btn-secondary d-grid w-100" type="" href="<?= base_url('login') ?>">Batal</a>
-              </div>
+            <div class="mb-3">
+              <button class="btn btn-primary d-grid w-100" type="submit">Daftar</button>
+            </div>
+            <div class="mb-3">
+              <a class="btn btn-secondary d-grid w-100" type="" href="<?= base_url('login') ?>">Batal</a>
+            </div>
             </form>
 
           </div>
@@ -209,67 +209,7 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <script src="<?= base_url() ?>assets/js/cropper.js"></script>
 
-  <script>
-    var bs_modal = $('#modalUpload');
-    var foto = document.getElementById('foto');
-    var cropper, reader, file;
-    var aspect = <?= @$aspect ? @$aspect : '1/1' ?>;
-
-    $("body").on("change", ".foto", function(e) {
-      var files = e.target.files;
-      var done = function(url) {
-        foto.src = url;
-        bs_modal.modal('show');
-      };
-
-
-      if (files && files.length > 0) {
-        file = files[0];
-
-        if (URL) {
-          done(URL.createObjectURL(file));
-        } else if (FileReader) {
-          reader = new FileReader();
-          reader.onload = function(e) {
-            done(reader.result);
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-    });
-
-    bs_modal.on('shown.bs.modal', function() {
-      cropper = new Cropper(foto, {
-        aspectRatio: aspect,
-        viewMode: 3,
-        preview: '.preview'
-      });
-
-    }).on('hidden.bs.modal', function() {
-      cropper.destroy();
-      cropper = null;
-    });
-
-    $("#crop").click(function() {
-      canvas = cropper.getCroppedCanvas({
-        width: 1000,
-        height: 1000,
-      });
-
-      canv = cropper.getCroppedCanvas();
-
-      canvas.toBlob(function(blob) {
-        url = URL.createObjectURL(blob);
-        var reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = function() {
-          var base64data = reader.result;
-          $("#file_foto").val(base64data);
-          bs_modal.modal('hide');
-        };
-      });
-    });
-  </script>
+  <?php ;$this->load->view('components/hd_cropper'); ?>
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

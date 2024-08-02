@@ -88,12 +88,8 @@
         </div>
 
 
-        <div class="mb-3">
-            <button class="btn btn-primary d-grid w-100" type="submit">Simpan</button>
-        </div>
-        <div class="mb-3">
-            <a class="btn btn-secondary d-grid w-100" type="" href="<?= base_url('login') ?>">Batal</a>
-        </div>
+        <button type="submit" class="btn btn-primary w-100" style="">Simpan</button>
+        <!-- <a href="<?= base_url() ?>admin/event" class="btn btn-secondary">Batal</a> -->
         </form>
     </div>
     <!-- /Account -->

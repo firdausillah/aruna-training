@@ -129,6 +129,8 @@ class Trainer extends CI_Controller
 
     public function delete($id)
     {
+        $data = $this->defaultModel->findBy(['id' => $id])->row();
+        @unlink(FCPATH . 'uploads/img/trainer/' . $data->foto);
         if ($this->defaultModel->delete(['id' => $id])) {
             $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } else {

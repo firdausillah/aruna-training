@@ -21,6 +21,20 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
+                    <label class="form-label" for="pelaksanaan_tanggal">tanggal Pelaksanaan</label>
+                    <input type="text" name="pelaksanaan_tanggal" id="pelaksanaan_tanggal" value="<?= @$event->pelaksanaan_tanggal ?>" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label" for="pelaksanaan_tempat">tempat Pelaksanaan</label>
+                    <input type="text" name="pelaksanaan_tempat" id="pelaksanaan_tempat" value="<?= @$event->pelaksanaan_tempat ?>" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
                     <label class="form-label" for="tanggal_buka_pendaftaran">tanggal pendaftaran dibuka <span class="text-danger">*</span></label>
                     <input type="date" name="tanggal_buka_pendaftaran" id="tanggal_buka_pendaftaran" value="<?= @$event->tanggal_buka_pendaftaran ?>" class="form-control" required>
                 </div>
