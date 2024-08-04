@@ -23,7 +23,7 @@
                                     <tr>
                                         <td>Tempat & Tanggal Pelaksanaan</td>
                                         <td>:</td>
-                                        <td><?= @$event->pelaksanaan_tempat .', '.  @$event->pelaksanaan_tanggal ?></td>
+                                        <td><?= @$event->pelaksanaan_tempat . ', ' .  @$event->pelaksanaan_tanggal ?></td>
                                     </tr>
                                     <tr>
                                         <td>Periode Pendaftaran</td>
@@ -326,15 +326,13 @@
                     <h5 class="my-auto">Presensi <?= @$event->nama ?></h5>
                 </div>
                 <div class="table-responsive text-nowrap mt-2">
-                    <table id="datatables_table2" class="table table-hover" width="100%">
+                    <table id="table_presensi" class="table table-hover" width="100%">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Status Pendaftaran</th>
-                                <th>Nama</th>
+                                <th>Aktifitas</th>
                                 <th>Foto</th>
-                                <th>Catatan</th>
-                                <th>Actions</th>
+                                <th>Jam Presensi</th>
                             </tr>
                         </thead>
                     </table>
@@ -705,10 +703,43 @@
             });
             // END Event Activity
 
+            // BEGIN Event Presensi
+            table_presensi = $('#table_presensi').DataTable({
+                responsive: true,
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        data: 'activity_nama'
+                    },
+                    {
+                        data: 'foto',
+                        render: function(data, type, row) {
+                            return `
+                                <a href="<?= base_url('uploads/img/presensi/') ?>` + data + `" target="_blank">
+                                    <img src="<?= base_url('uploads/img/presensi/') ?>` + data + `" height="100px" alt="">
+                                </a>
+                            `
+                        }
+                    },
+                    {
+                        data: 'created_on'
+                    }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }]
+            });
+            // END Event Presensi
+
             $('#table_event_member').on('click', 'tbody tr', function(event) {
                 $(this).addClass('table-active').siblings().removeClass('table-active');
                 // console.log();
                 let id_member = $(this).attr('data-id_member');
+                get_presensi(id_member);
                 get_bio_data(id_member);
             });
 
@@ -1078,6 +1109,16 @@
             });
         }
         // END Event Activity
+
+        // BEGIN Presensi
+        function get_presensi(id_member) {
+            Loading.fire({});
+            table_presensi.ajax.url('<?= base_url('admin/_event/event_member_t/getMemberPresensi?id_member=') ?>' + id_member).load(function() {
+                Swal.close()
+            });
+            return false;
+        }
+        // END Presensi
 
         // BEGIN Biodata
         function get_bio_data(id_member) {

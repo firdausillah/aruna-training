@@ -9,6 +9,7 @@ class Event_member_t extends CI_Controller
         $this->load->model('EventModel', 'defaultModel');
         $this->load->model('MemberModel');
         $this->load->model('RawModel');
+        $this->load->model('PresensiModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
 
@@ -39,6 +40,19 @@ class Event_member_t extends CI_Controller
                 'members.is_active' => 1
             ];
             echo json_encode(['data' => $this->MemberModel->findBy($data)->row()]);
+        } else {
+            echo json_encode([]);
+        }
+    }
+
+    public function getMemberPresensi()
+    {
+        if ($_GET['id_member'] != null) {
+            $data = [
+                'presensi.id_member' => $_GET['id_member'],
+                'presensi.is_active' => 1
+            ];
+            echo json_encode(['data' => $this->PresensiModel->findBy($data)->result()]);
         } else {
             echo json_encode([]);
         }

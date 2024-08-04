@@ -69,7 +69,7 @@
                         ]
                     ];
                     foreach ($data as $val) : ?>
-                        <div class="col-6 col-md-4 mb-3">
+                        <div class="col-6 col-sm-4 mb-3">
                             <a href="<?= base_url('member/').$val['url'] ?>">
                                 <div class="card" style="height:100%;">
                                     <div class="card-body p-2 d-flex justify-content-center">

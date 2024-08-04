@@ -7,14 +7,14 @@
             <div class="navbar-nav-right d-flex align-items-center justify-content-between" id="navbar-collapse">
                 <?php if($uri != 'dashboard'): ?>
                 <a href="<?= base_url('member/dashboard') ?>">
-                    <i class='bx bx-chevron-left text-white'></i>
+                    <i class='bx bx-chevron-left text-white' style="font-size: xx-large;"></i>
                 </a>
                 <?php endif; ?>
                 <ul class="navbar-nav flex-row align-items-center gap-3 ms-auto">
                     <!-- User -->
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                            <i class="bx bx-menu text-white"></i>
+                            <i class="bx bx-menu text-white" style="font-size: xx-large;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
