@@ -26,7 +26,7 @@
   <script>
     $(document).ready(function() {
       // Skrip yang ingin dijalankan setelah halaman dimuat
-      // window.print(); // Contoh: beralih ke mode cetak
+      window.print(); // Contoh: beralih ke mode cetak
     });
   </script>
 </body>

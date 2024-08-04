@@ -46,7 +46,7 @@
 		<div class="misc-wrapper">
 			<h2 class="mb-2 mx-2">Page Not Found :(</h2>
 			<p class="mb-4 mx-2">Oops! 😖 Halaman yang anda cari tidak ada.</p>
-			<a href="<?= base_url('login') ?>" class="btn btn-primary">Kembali ke Home</a>
+			<a href="<?= base_url() ?>" class="btn btn-primary">Kembali ke Home</a>
 			<div class="mt-3">
 				<img src="<?= base_url() ?>/assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png" data-app-light-img="illustrations/page-misc-error-light.png" />
 			</div>

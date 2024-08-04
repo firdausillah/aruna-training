@@ -15,7 +15,9 @@ class Login extends CI_Controller
 	{
 		if (isset($_SESSION['nama'])) {
 			if ($_SESSION['role'] == 'superadmin') {
-				redirect('admin/vote_data/vote_data_h');
+				redirect('admin/dashboard');
+			} else {
+				redirect($_SESSION['role'].'/dashboard');
 			}
 		}else{
 			$this->load->view('login', ['is_admin' => 0]);

@@ -17,7 +17,7 @@ class Id_card extends CI_Controller
     {
         $data = [
             'title' => 'Id Card',
-            'member' => $this->MemberModel->findBy(['users.id' => $_SESSION['id']])->row(),
+            'member' => $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row(),
             'content' => 'member/id_card/index'
         ];
 
@@ -28,11 +28,13 @@ class Id_card extends CI_Controller
     {
         $data = [
             'title' => 'Id Card',
-            'member' => $this->MemberModel->findBy(['users.id' => $_SESSION['id']])->row(),
+            'member' => $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row(),
             'content' => 'member/id_card/cetak',
             'base_url' => base_url('uploads/img/id_card/')
         ];
 
-        $this->load->view('layout_print/base', $data);
+        // print_r($data); exit();
+
+        $this->load->view('layout_print/base_mpdf', $data);
     }
 }

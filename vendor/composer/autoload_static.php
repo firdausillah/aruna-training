@@ -22,6 +22,10 @@ class ComposerStaticInitdb236e45addf509bfa41eb5002f9fa88
         array (
             'ZipStream\\' => 10,
         ),
+        'S' => 
+        array (
+            'Symfony\\Component\\Process\\' => 26,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
@@ -38,6 +42,10 @@ class ComposerStaticInitdb236e45addf509bfa41eb5002f9fa88
             'Mpdf\\PsrHttpMessageShim\\' => 24,
             'Mpdf\\' => 5,
             'Matrix\\' => 7,
+        ),
+        'K' => 
+        array (
+            'Knp\\Snappy\\' => 11,
         ),
         'D' => 
         array (
@@ -58,6 +66,10 @@ class ComposerStaticInitdb236e45addf509bfa41eb5002f9fa88
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -103,6 +115,10 @@ class ComposerStaticInitdb236e45addf509bfa41eb5002f9fa88
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'Knp\\Snappy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-snappy/src/Knp/Snappy',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

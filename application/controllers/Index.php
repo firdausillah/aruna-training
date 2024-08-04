@@ -19,7 +19,7 @@ class Index extends CI_Controller
 
         $this->load->view('layout_front/base', $data);
 
-        // redirect(base_url('login')); 
+        redirect(base_url('login')); 
     }
 
 }
