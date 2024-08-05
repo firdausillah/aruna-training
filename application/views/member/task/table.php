@@ -9,6 +9,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Aktivitas/Materi</th>
+                    <th>Nama Tugas</th>
                     <th>Link Tugas</th>
                     <th>Nilai</th>
                     <th>Waktu Pengumpulan</th>
@@ -32,6 +33,9 @@
                 },
                 {
                     data: 'activity_nama'
+                },
+                {
+                    data: 'nama'
                 },
                 {
                     data: 'task_link',

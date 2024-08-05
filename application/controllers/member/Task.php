@@ -74,7 +74,8 @@ class Task extends CI_Controller
             'member_nama'   => $member_nama,
             'event_nama'    => $_SESSION['event_nama'],
             'activity_nama' => $activity_nama,
-            'keterangan'    => $this->input->post('keterangan')
+            'keterangan'    => $this->input->post('keterangan'),
+            'nama'          => $this->input->post('nama')
         ];
 
 

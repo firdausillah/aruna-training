@@ -28,12 +28,18 @@
         <input type="hidden" name="id" value="<?= @$task->id ?>">
         <div class="mb-3">
             <label class="form-label" for="id_activity">Aktifitas/Materi <span class="text-danger">*</span></label>
-            <select class="form-control" name="id_activity" id="id_acitvity">
+            <select class="form-control" name="id_activity" id="id_acitvity" required>
                 <option value="">-- Pilih --</option>
                 <?php foreach ($activities as $key => $value) : ?>
                     <option value="<?= $value->id ?>"><?= $value->nama ?></option>
                 <?php endforeach; ?>
             </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="nama">Nama tugas <span class="text-danger">*</span></label>
+            <div class="input-group input-group-merge">
+                <input type="text" name="nama" id="nama" value="<?= @$task->nama ?>" class="form-control" required>
+            </div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="task_link">link tugas</label>
@@ -45,7 +51,7 @@
             <label class="form-label" for="keterangan">Keterangan</label>
             <div class="input-group input-group-merge">
                 <!-- <input type="text" name="keterangan" id="keterangan" value="<?= @$task->keterangan ?>" class="form-control"> -->
-                <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"><?=@$task->keterangan?></textarea>
+                <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"><?= @$task->keterangan ?></textarea>
             </div>
         </div>
         <a href="<?= base_url() ?>member/task" class="btn btn-secondary">Batal</a>
