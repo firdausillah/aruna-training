@@ -581,7 +581,7 @@
                         data: 'id',
                         render: function(data, type, row) {
                             return '<span>' +
-                                '<a class="text-danger" href="#" onclick="return action_delete_trainer(' + row.id_trainer + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
+                                '<a class="text-danger" href="#" onclick="return action_delete_materi(' + row.id_materi + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
                                 '</span>'
 
                         }

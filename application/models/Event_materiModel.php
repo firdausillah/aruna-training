@@ -17,7 +17,7 @@
 	}
  	
  	function get(){
-		$this->db->select("if(materi.is_approve=0,'Tutup','Buka') as akses, if(materi.is_approve=0,'warning','success') as bg, event_materi_t.id, materi.nama, file, materi.keterangan, event_materi_t.id_materi");
+		$this->db->select("if(materi.is_approve=0,'Tutup','Buka') as akses, if(materi.is_approve=0,'warning','success') as bg, event_materi_t.id, materi.nama, file, materi.keterangan, event_materi_t.id_materi, events.id as id_event");
 		$this->db->from('events');
 		$this->db->join('event_materi_t', 'event_materi_t.id_event = events.id');
 		$this->db->join('materi', 'materi.id = event_materi_t.id_materi');
@@ -26,7 +26,7 @@
  	}
 
  	function findBy($id){
-		$this->db->select("if(materi.is_approve=0,'Tutup','Buka') as akses, if(materi.is_approve=0,'warning','success') as bg, event_materi_t.id, materi.nama, file, materi.keterangan, event_materi_t.id_materi");
+		$this->db->select("if(materi.is_approve=0,'Tutup','Buka') as akses, if(materi.is_approve=0,'warning','success') as bg, event_materi_t.id, materi.nama, file, materi.keterangan, event_materi_t.id_materi, events.id as id_event");
 		$this->db->from('events');
 		$this->db->join('event_materi_t', 'event_materi_t.id_event = events.id');
 		$this->db->join('materi', 'materi.id = event_materi_t.id_materi');
