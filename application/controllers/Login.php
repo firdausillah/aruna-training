@@ -61,38 +61,43 @@ class Login extends CI_Controller
 			if ($role == 'member') {
 				$data = $this->AuthModel->cekLoginMember($where)->row();
 				$test = $this->AuthModel->cekLoginMember($where)->num_rows();
-				$data_session_add =[
-					'foto'	=> $data->foto,
-					'instansi'	=> $data->instansi,
-					'id_event'	=> $data->id_event,
-					'event_nama' => $data->event_nama
-				];
+				// print_r($test); exit();
+				if ($test > 0) {
+					$data_session_add =[
+						'foto'	=> $data->foto,
+						'instansi'	=> $data->instansi,
+						'id_event'	=> $data->id_event,
+						'event_nama' => $data->event_nama
+					];
+					$redirect = 'member/dashboard';
+				}
 		
-				$redirect = 'member/dashboard';
-			}else{
+			}elseif($role == 'trainer'){
 				$data = $this->AuthModel->cekLoginTrainer($where)->row();
 				$test = $this->AuthModel->cekLoginTrainer($where)->num_rows();
-				$data_session_add =[
-
-				];
-		
-				$redirect = 'trainer/dashboard';
-			}	
+				if ($test > 0) {
+					# code...
+					$data_session_add =[
+	
+					];
+					$redirect = 'trainer/dashboard';	
+				}
+			}
 		}
 
-		$data_session_def = [
-			'id'	=> $data->id,
-			'nama'	=> $data->nama,
-			'username'	=> $data->username,
-			'password'	=> $data->password,
-			'role'	=> $data->role,
-			'status'	=> 'login'
-		];
-
-		$data_session = array_merge($data_session_def, $data_session_add);
-		// print_r($data_session); exit();
-		
 		if ($test > 0) {
+			$data_session_def = [
+				'id'	=> $data->id,
+				'nama'	=> $data->nama,
+				'username'	=> $data->username,
+				'password'	=> $data->password,
+				'role'	=> $data->role,
+				'status'	=> 'login'
+			];
+	
+			$data_session = array_merge($data_session_def, $data_session_add);
+
+
 			$this->session->set_userdata($data_session);
 			$this->session->set_flashdata(['status' => 'success', 'message' => 'Anda berhasil login']);
 

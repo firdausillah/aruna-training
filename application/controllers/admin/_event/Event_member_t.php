@@ -58,6 +58,19 @@ class Event_member_t extends CI_Controller
         }
     }
 
+    public function getPresensiAkumulasi()
+    {
+        if ($_GET['id_event'] != null) {
+            $data = [
+                'presensi.id_event' => $_GET['id_event'],
+                'presensi.is_active' => 1
+            ];
+            echo json_encode(['data' => $this->PresensiModel->findBy($data)->result()]);
+        } else {
+            echo json_encode([]);
+        }
+    }
+
     public function update_catatan()
     {
         // print_r($_POST); exit();

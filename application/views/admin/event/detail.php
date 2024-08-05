@@ -190,92 +190,14 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama</th>
-                                        <th width="10%">Actions</th>
+                                        <th>Aktifitas</th>
+                                        <th>Foto</th>
+                                        <th>Waktu Presensi</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
                     </div>
-
-                    <!-- <div class="tab-pane fade" id="tugas" role="tabpanel">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="my-auto">Tugas <?= @$event->nama ?></h5>
-                    </div>
-                    <div class="table-responsive text-nowrap mt-2">
-                        <table id="datatables_table2" class="table table-hover" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Status Pendaftaran</th>
-                                    <th>Nama</th>
-                                    <th>Foto</th>
-                                    <th>Catatan</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="data_unit" role="tabpanel">
-                    <div class="table-responsive text-nowrap mt-2">
-                        <table id="table" class="table table-hover">
-                            <tbody class="table-border-bottom-0">
-                                <tr>
-                                    <td width="20%">Nama Unit</td>
-                                    <td width="2%">:</td>
-                                    <td width="70%" id="unit_nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Status Pendaftaran</td>
-                                    <td>:</td>
-                                    <td id="is_approve"></td>
-                                </tr>
-                                <tr>
-                                    <td>Kordinator</td>
-                                    <td>:</td>
-                                    <td id="kordinator_nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>kontak</td>
-                                    <td>:</td>
-                                    <td id="kontak"></td>
-                                </tr>
-                                <tr>
-                                    <td>Jenis Unit</td>
-                                    <td>:</td>
-                                    <td id="unit_jenis"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Pendaftaran</td>
-                                    <td>:</td>
-                                    <td id="created_on"></td>
-                                </tr>
-                                <tr>
-                                    <td>File Surat Tugas</td>
-                                    <td>:</td>
-                                    <td id="file_surat_tugas"></td>
-                                </tr>
-                                <tr>
-                                    <td>Print ID Card</td>
-                                    <td>:</td>
-                                    <td id="cetak_id_card"></td>
-                                </tr>
-                                <tr>
-                                    <td>Catatan</td>
-                                    <td>:</td>
-                                    <td>
-                                        <div class="input-group input-group-merge mb-2">
-                                            <input type="text" name="keterangan" id="event_unit_keterangan" value="" class="form-control">
-                                        </div>
-                                        <input type="hidden" id="id_event_unit" value="" class="form-control">
-                                        <button type="submit" id="btn_save_catatan" onclick="update_catatan_unit()" class="btn btn-sm btn-primary disabled">Simpan Catatan</button>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> -->
                 </div>
             </div>
         </div>
@@ -332,7 +254,7 @@
                                 <th>No.</th>
                                 <th>Aktifitas</th>
                                 <th>Foto</th>
-                                <th>Jam Presensi</th>
+                                <th>Waktu Presensi</th>
                             </tr>
                         </thead>
                     </table>
@@ -693,6 +615,42 @@
                                 '</span>'
 
                         }
+                    }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }]
+            });
+            // END Event Activity
+
+            // BEGIN Event Activity
+            table_presensi_akumulasi = $('#table_presensi_akumulasi').DataTable({
+                responsive: true,
+                ajax: '<?= base_url('admin/_event/event_member_t/getPresensiAkumulasi?id_event=') ?>' + id_event,
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        data: 'member_nama'
+                    },
+                    {
+                        data: 'activity_nama'
+                    },
+                    {
+                        data: 'foto',
+                        render: function(data, type, row) {
+                            return `
+                                <a href="<?= base_url('uploads/img/presensi/') ?>` + data + `" target="_blank">
+                                    <img src="<?= base_url('uploads/img/presensi/') ?>` + data + `" height="100px" alt="">
+                                </a>
+                            `
+                        }
+                    },
+                    {
+                        data: 'created_on'
                     }
                 ],
                 columnDefs: [{
