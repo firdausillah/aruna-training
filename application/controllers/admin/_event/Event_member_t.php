@@ -10,6 +10,7 @@ class Event_member_t extends CI_Controller
         $this->load->model('MemberModel');
         $this->load->model('RawModel');
         $this->load->model('PresensiModel');
+        $this->load->model('TaskModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
 
@@ -40,6 +41,19 @@ class Event_member_t extends CI_Controller
                 'members.is_active' => 1
             ];
             echo json_encode(['data' => $this->MemberModel->findBy($data)->row()]);
+        } else {
+            echo json_encode([]);
+        }
+    }
+
+    public function getMemberTask()
+    {
+        if ($_GET['id_member'] != null) {
+            $data = [
+                'tasks.id_member' => $_GET['id_member'],
+                'tasks.is_active' => 1
+            ];
+            echo json_encode(['data' => $this->TaskModel->findBy($data)->result()]);
         } else {
             echo json_encode([]);
         }
@@ -100,9 +114,10 @@ class Event_member_t extends CI_Controller
         // redirect($this->url_index);
     }
 
-    public function nonaktif($id)
+    public function nonaktif()
     {
-        if ($this->defaultModel->update(['id' => $id], ['is_active' => 0])) {
+        // print_r($_POST); exit();
+        if ($this->MemberModel->update(['id' => $_POST['id_member']], ['is_active' => 0])) {
             echo json_encode(['status' => 'success', 'message' => 'Data berhasil dinonaktifkan']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);

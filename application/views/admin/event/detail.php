@@ -228,15 +228,15 @@
                     <h5 class="my-auto">Tugas <?= @$event->nama ?></h5>
                 </div>
                 <div class="table-responsive text-nowrap mt-2">
-                    <table id="datatables_table1" class="table table-hover" width="100%">
+                    <table id="table_task" class="table table-hover" width="100%">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Status Pendaftaran</th>
-                                <th>Nama</th>
-                                <th>File Persyaratan</th>
-                                <th>Foto</th>
-                                <th>Catatan</th>
+                                <th>Aktivitas/Materi</th>
+                                <th>Link Tugas</th>
+                                <th>Nilai</th>
+                                <th>Waktu Pengumpulan</th>
+                                <th>Keterangan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -483,6 +483,7 @@
                             return '<span>' +
                                 '<a href="<?= base_url('admin/event/cetak/id_card_event_member/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
                                 '<a href="#" onClick="open_form_edit_member(' + data + ')" class="text-info"><i class="bx bx-edit-alt me-1"></i></a>' +
+                                '<a class="text-danger" href="#" onclick="return action_delete_member(' + data + ')"><i class="bx bx-trash me-1"></i></a>' +
                                 '</span>'
 
                         }
@@ -610,7 +611,6 @@
                         data: 'id',
                         render: function(data, type, row) {
                             return '<span>' +
-                                '<a href="<?= base_url('admin/event/cetak/id_card_event_pendamping/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
                                 '<a class="text-danger" href="#" onclick="return action_delete_activity(' + data + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
                                 '</span>'
 
@@ -661,6 +661,50 @@
             });
             // END Event Activity
 
+            // BEGIN Event Tugas
+            table_task = $('#table_task').DataTable({
+                responsive: true,
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        data: 'activity_nama'
+                    },
+                    {
+                        data: 'task_link',
+                        render: function(data, type, row) {
+                            return `<a href="` + row.task_link + `" class="btn btn-success rounded-pill btn-sm" target='_blank'>
+                                        Lihat Tugas
+                                    </a>`;
+                        }
+                    },
+                    {
+                        data: 'nilai'
+                    },
+                    {
+                        data: 'created_on'
+                    },
+                    {
+                        data: 'keterangan'
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return `<td>` +
+                                `<a class="text-danger" href="#" onclick="confirmDelete('<?= base_url('member/task/delete/') ?>` + data + `')"><i class=" bx bx-trash me-1 "></i></a>` +
+                                `</td>`
+                        }
+                    }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }]
+            });
+            // END Event Tugas
+
             // BEGIN Event Presensi
             table_presensi = $('#table_presensi').DataTable({
                 responsive: true,
@@ -697,6 +741,7 @@
                 $(this).addClass('table-active').siblings().removeClass('table-active');
                 // console.log();
                 let id_member = $(this).attr('data-id_member');
+                get_task(id_member);
                 get_presensi(id_member);
                 get_bio_data(id_member);
             });
@@ -781,6 +826,31 @@
                     table_event_member.ajax.reload();
                 }
             });
+        }
+
+        function action_delete_member(id_member) {
+            let text = "Anda yakin akan menghapus data ini?";
+            if (confirm(text) == true) {
+                $.ajax({
+                    url: '<?= base_url('admin/_event/event_member_t/nonaktif') ?>',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        id_member: id_member
+                    },
+                    success: function(json) {
+                        table_event_member.ajax.reload(function() {
+                            Toast.fire({
+                                icon: json.status,
+                                title: json.message
+                            });
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', status, error);
+                    }
+                });
+            }
         }
         // END Event Member
 
@@ -1067,6 +1137,16 @@
             });
         }
         // END Event Activity
+
+        // BEGIN Task
+        function get_task(id_member) {
+            Loading.fire({});
+            table_task.ajax.url('<?= base_url('admin/_event/event_member_t/getMemberTask?id_member=') ?>' + id_member).load(function() {
+                Swal.close()
+            });
+            return false;
+        }
+        // END Task
 
         // BEGIN Presensi
         function get_presensi(id_member) {

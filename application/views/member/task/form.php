@@ -5,7 +5,7 @@
         </button>
     </h2>
 
-    <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample" style="">
+    <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
         <div class="accordion-body">
             1. Upload file / gambar / folder tugas anda kedalam google drive <br>
             2. Buka akses link google drive tugas yang ingin anda kumpulkan <a href="https://support.google.com/googleone/answer/2494822?hl=id&co=GENIE.Platform%3DDesktop" target="_blank">(tutorial)</a> <br>

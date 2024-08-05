@@ -35,10 +35,10 @@
                 },
                 {
                     data: 'task_link',
-                    render: function(data, type, row){
-                        return `<a href="`+row.task_link+`" target='_blank'>
-                            `+row.task_link+`
-                        </a>`;
+                    render: function(data, type, row) {
+                        return `<a href="` + row.task_link + `" class="btn btn-success rounded-pill btn-sm" target='_blank'>
+                                        Lihat Tugas
+                                    </a>`;
                     }
                 },
                 {
