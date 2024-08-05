@@ -1,7 +1,6 @@
 <div class="card p-3">
     <div class="d-flex justify-content-between">
         <h5 class="my-auto"><?= $title ? $title : '' ?></h5>
-        <a href="<?= base_url('member/materi?page=add') ?>" class="btn btn-sm btn-success my-auto">Tambah data</a>
     </div>
     <div class="table-responsive text-nowrap mt-2">
         <table id="table_materi" class="table table-hover">

@@ -18,7 +18,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                                <a class="dropdown-item" href="<?= base_url('logout') ?>">
+                                <a class="dropdown-item" href="<?= base_url('member/biodata') ?>">
                                     <i class="bx bx-user me-2"></i>
                                     <span class="align-middle">Biodata</span>
                                 </a>
