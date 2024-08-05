@@ -69,6 +69,15 @@ class Event_materi_t extends CI_Controller
         }
     }
 
+    public function update_akses_materi()
+    {
+        if ($this->Event_materiModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
+            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
+        }
+    }
+
     public function delete()
     {
         $data = [

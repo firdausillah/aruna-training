@@ -561,7 +561,7 @@
 
                     },
                     {
-                        data: 'id_materi',
+                        data: 'id',
                         render: function(data, type, row) {
                             return `<td>` +
                                 `<div class='btn-group'>` +
@@ -934,7 +934,7 @@
         function action_update_akses_materi(id, is_approve) {
             Loading.fire({})
             $.ajax({
-                url: '<?= base_url('admin/materi/update_akses_materi') ?>',
+                url: '<?= base_url('admin/_event/event_materi_t/update_akses_materi') ?>',
                 type: 'POST',
                 dataType: 'json',
                 data: {

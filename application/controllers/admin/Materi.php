@@ -140,14 +140,14 @@ class Materi extends CI_Controller
         echo json_encode(['data' => $this->defaultModel->findBy($data)->result_array()]);
     }
 
-    public function update_akses_materi()
-    {
-        if ($this->defaultModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
-            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-        }
-    }
+    // public function update_akses_materi()
+    // {
+    //     if ($this->defaultModel->update(['id' => $_POST['id']], ['is_approve' => $_POST['is_approve']])) {
+    //         echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
+    //     } else {
+    //         echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
+    //     }
+    // }
 
     public function delete($id)
     {

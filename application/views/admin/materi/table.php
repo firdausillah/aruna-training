@@ -10,7 +10,6 @@
                     <th>No.</th>
                     <th>Judul Materi</th>
                     <th>File</th>
-                    <th>Akses Peserta</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -35,23 +34,6 @@
                         data: 'file',
                         render: function(data, type, row) {
                             return '<a href="<?= base_url('uploads/file/materi/') ?>' + data + '" target="_blank" class="text-black"><span class="text-info">' + data + '</span></a>'
-                        }
-                    },
-                    {
-                        data: 'id',
-                        render: function(data, type, row) {
-                            return `<td>` +
-                                        `<div class='btn-group'>` +
-                                            `<button type='button' class='btn btn-sm btn-` + row.bg + ` dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='true'>` +
-                                            row.akses +
-                                            `</button>` +
-                                            `<ul class='dropdown-menu' style='position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 39.5px, 0px);' data-popper-placement='bottom-start'>` +
-                                                `<li><a class='dropdown-item' href='javascript:void(0);' onClick='action_update_akses_materi(` + data + `,1)'>Buka</a></li>` +
-                                                `<li><a class='dropdown-item' href='javascript:void(0);' onClick='action_update_akses_materi(` + data + `,0)'>Tutup</a></li>` +
-                                            `</ul>` +
-                                        `</div>` +
-                                    `</td>`
-
                         }
                     },
                     {
