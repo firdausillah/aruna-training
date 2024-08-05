@@ -24,7 +24,7 @@
                         <td><?= $index + 1 ?></td>
                         <td><a href="<?= base_url('admin/event?page=detail&id=' . $item->id) ?>" class="text-black"><?= $item->nama ?></a></td>
                         <td><?= ($item->tanggal_buka_pendaftaran == '0000-00-00' ? '' : date('d M Y', strtotime($item->tanggal_buka_pendaftaran))) . ' s/d ' . ($item->tanggal_tutup_pendaftaran == '0000-00-00' ? '' : date('d M Y', strtotime($item->tanggal_tutup_pendaftaran))) ?></td>
-                        <td><?= $item->token ?></td>
+                        <td><span class="badge rounded-pill bg-info"><?= $item->token ?></span></td>
                         <td><?= $item->keterangan ?> </td>
                         <td><?= ((date('Y-m-d') >  $item->tanggal_buka_pendaftaran && date('Y-m-d') <  $item->tanggal_tutup_pendaftaran) ? '<span class="btn btn-sm btn-success">Tersedia</span>' : '<span class="btn btn-sm btn-warning">Tidak Tersedia</span>') ?></td>
                         <td>

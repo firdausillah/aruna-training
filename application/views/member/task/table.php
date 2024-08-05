@@ -1,16 +1,18 @@
 <div class="card p-3">
     <div class="d-flex justify-content-between">
         <h5 class="my-auto"><?= $title ? $title : '' ?></h5>
-        <a href="<?= base_url('member/presensi?page=add') ?>" class="btn btn-sm btn-success my-auto">Tambah data</a>
+        <a href="<?= base_url('member/task?page=add') ?>" class="btn btn-sm btn-success my-auto">Kumpulkan Tugas</a>
     </div>
     <div class="table-responsive text-nowrap mt-2">
-        <table id="table_presensi" class="table table-hover">
+        <table id="table_task" class="table table-hover">
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Aktivitas</th>
-                    <th>Foto</th>
-                    <th>Waktu Presensi</th>
+                    <th>Aktivitas/Materi</th>
+                    <th>Link Tugas</th>
+                    <th>Nilai</th>
+                    <th>Waktu Pengumpulan</th>
+                    <th>Keterangan</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -21,9 +23,9 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        table_presensi = $('#table_presensi').DataTable({
+        table_task = $('#table_task').DataTable({
             responsive: true,
-            ajax: '<?= base_url('member/presensi/getPresensi') ?>',
+            ajax: '<?= base_url('member/task/getTask') ?>',
             columns: [{
                     data: 'id',
                     visible: false
@@ -32,19 +34,27 @@
                     data: 'activity_nama'
                 },
                 {
-                    data: 'foto',
-                    render: function(data, type, row) {
-                        return '<img src="<?= base_url('uploads/img/presensi/') ?>' + data + '" height="100px" alt=""><img src="' + data + '" alt="">'
+                    data: 'task_link',
+                    render: function(data, type, row){
+                        return `<a href="`+row.task_link+`" target='_blank'>
+                            `+row.task_link+`
+                        </a>`;
                     }
+                },
+                {
+                    data: 'nilai'
                 },
                 {
                     data: 'created_on'
                 },
                 {
+                    data: 'keterangan'
+                },
+                {
                     data: 'id',
                     render: function(data, type, row) {
                         return `<td>` +
-                            `<a class="text-danger" href="#" onclick="confirmDelete('<?= base_url('member/presensi/delete/') ?>` + data + `')"><i class=" bx bx-trash me-1 "></i></a>` +
+                            `<a class="text-danger" href="#" onclick="confirmDelete('<?= base_url('member/task/delete/') ?>` + data + `')"><i class=" bx bx-trash me-1 "></i></a>` +
                             `</td>`
                     }
                 }
