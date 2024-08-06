@@ -46,6 +46,16 @@
   <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/fontawesome/css/fontawesome.min.css" />
   <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/fontawesome/css/regular.min.css" />
 
+  <style>
+    /* CSS untuk membatasi lebar kolom dan membungkus teks */
+    .wrap-text {
+      white-space: normal !important;
+      word-wrap: break-word;
+      max-width: 500px;
+      /* Ubah sesuai kebutuhan Anda */
+    }
+  </style>
+
   <!-- Helpers -->
   <script src="<?= base_url() ?>assets/vendor/js/helpers.js"></script>
 

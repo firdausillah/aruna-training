@@ -59,6 +59,19 @@ class Event_member_t extends CI_Controller
         }
     }
 
+    public function getTaskRow()
+    {
+        if ($_GET['id_task'] != null) {
+            $data = [
+                'tasks.id' => $_GET['id_task'],
+                'tasks.is_active' => 1
+            ];
+            echo json_encode(['data' => $this->TaskModel->findBy($data)->row()]);
+        } else {
+            echo json_encode([]);
+        }
+    }
+
     public function getMemberPresensi()
     {
         if ($_GET['id_member'] != null) {

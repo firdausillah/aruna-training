@@ -11,9 +11,10 @@
                     <th>Aktivitas/Materi</th>
                     <th>Nama Tugas</th>
                     <th>Link Tugas</th>
-                    <th>Nilai</th>
+                    <th>Detail Tugas</th>
                     <th>Waktu Pengumpulan</th>
-                    <th>Keterangan</th>
+                    <th>Nilai</th>
+                    <th>Catatan</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -46,10 +47,16 @@
                     }
                 },
                 {
-                    data: 'nilai'
+                    data: 'task_detail'
                 },
                 {
-                    data: 'created_on'
+                    data: 'created_on',
+                    render: function(data, rype, row){
+                        return `<span class="badge rounded-pill bg-secondary">`+data+`</span>`
+                    }
+                },
+                {
+                    data: 'nilai'
                 },
                 {
                     data: 'keterangan'

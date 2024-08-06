@@ -235,9 +235,10 @@
                                 <th>Aktivitas/Materi</th>
                                 <th>Nama Tugas</th>
                                 <th>Link Tugas</th>
-                                <th>Nilai</th>
+                                <th>Detail Tugas</th>
                                 <th>Waktu Pengumpulan</th>
-                                <th>Keterangan</th>
+                                <th>Nilai</th>
+                                <th>Catatan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -408,6 +409,44 @@
         </div>
     </div>
     <!-- END Modal Event Activity -->
+
+    <!-- BEGIN Modal Edit Catatan Task -->
+    <div class="modal fade" id="form_edit_task" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="form_edit_taskTitle">Form Peserta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- <form action=""> -->
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" id="id_task" name="id_task" value="">
+                        <div class="mb-3">
+                            <label for="task_nilai" class="form-label">Nilai</label>
+                            <div class="input-group input-group-merge">
+                                <input type="text" name="task_nilai" id="task_nilai" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="task_keterangan" class="form-label">Catatan</label>
+                            <div class="input-group input-group-merge">
+                                <textarea name="task_keterangan" id="task_keterangan" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Batal
+                    </button>
+                    <button type="button" onclick="action_update_catatan_member_task()" class="btn btn-primary">Simpan</button>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+    <!-- END Modal Edit Catatan Task -->
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
@@ -670,10 +709,10 @@
                         visible: false
                     },
                     {
-                        data: 'nama'
+                        data: 'activity_nama'
                     },
                     {
-                        data: 'activity_nama'
+                        data: 'nama'
                     },
                     {
                         data: 'task_link',
@@ -684,10 +723,16 @@
                         }
                     },
                     {
-                        data: 'nilai'
+                        data: 'task_detail'
                     },
                     {
-                        data: 'created_on'
+                        data: 'created_on',
+                        render: function(data, rype, row) {
+                            return ` <span class = "badge rounded-pill bg-secondary" > ` + data + ` </span>`
+                        }
+                    },
+                    {
+                        data: 'nilai'
                     },
                     {
                         data: 'keterangan'
@@ -696,6 +741,7 @@
                         data: 'id',
                         render: function(data, type, row) {
                             return `<td>` +
+                                '<a href="#" onClick="open_form_edit_task(' + data + ')" class="text-info"><i class="bx bx-edit-alt me-1"></i></a>' +
                                 `<a class="text-danger" href="#" onclick="confirmDelete('<?= base_url('member/task/delete/') ?>` + data + `')"><i class=" bx bx-trash me-1 "></i></a>` +
                                 `</td>`
                         }
@@ -1149,6 +1195,61 @@
                 Swal.close()
             });
             return false;
+        }
+
+        function open_form_edit_task(id_task) {
+            $("#form_edit_task").modal('show');
+            $("#form_edit_task #id_task").val(id_task);
+
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/getTaskRow?id_task=') ?>' + id_task,
+                type: 'POST',
+                dataType: 'json',
+                success: function(json) {
+                    if (json != undefined) {
+                        var keterangan = json.data.keterangan;
+                        var nilai = json.data.nilai;
+                        $("#form_edit_task #task_keterangan").val(keterangan);
+                        $("#form_edit_task #task_nilai").val(nilai);
+                    }
+                    Swal.close()
+                }
+            });
+        }
+
+        function action_update_catatan_member_task() {
+            let id_event_member = $('#id_event_member').val();
+            let event_member_keterangan = $('#event_member_keterangan').val();
+
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/update_catatan') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id_event_member: id_event_member,
+                    event_member_keterangan: event_member_keterangan
+                },
+                success: function(json) {
+                    table_event_member.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+
+                    $("#form_edit_member").modal('hide');
+
+                    event_member_keterangan = '';
+                    id_event_member = '';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+
+            // $("#modalForm")[0].reset();
         }
         // END Task
 

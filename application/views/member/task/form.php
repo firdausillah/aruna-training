@@ -48,10 +48,9 @@
             </div>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="keterangan">Keterangan</label>
+            <label class="form-label" for="task_detail">Detail Tugas</label>
             <div class="input-group input-group-merge">
-                <!-- <input type="text" name="keterangan" id="keterangan" value="<?= @$task->keterangan ?>" class="form-control"> -->
-                <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"><?= @$task->keterangan ?></textarea>
+                <textarea name="task_detail" id="task_detail" cols="30" rows="10" class="form-control"><?= @$task->task_detail ?></textarea>
             </div>
         </div>
         <a href="<?= base_url() ?>member/task" class="btn btn-secondary">Batal</a>

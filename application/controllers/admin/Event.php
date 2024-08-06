@@ -58,7 +58,7 @@ class Event extends CI_Controller
         } else if ($page == 'detail') {
             $id = (isset($_GET['id']) ? $_GET['id'] : '');
             $data = [
-                'title' => 'Detail Data',
+                'title' => $this->defaultModel->findBy(['id' => $id])->row()->nama,
                 $this->defaultVariable => $this->defaultModel->findBy(['id' => $id])->row(),
                 'trainers' => $this->TrainerModel->get()->result(),
                 'content' => $this->url_index . '/detail'
