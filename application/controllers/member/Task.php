@@ -74,7 +74,7 @@ class Task extends CI_Controller
             'member_nama'   => $member_nama,
             'event_nama'    => $_SESSION['event_nama'],
             'activity_nama' => $activity_nama,
-            'keterangan'    => $this->input->post('keterangan'),
+            'task_detail'    => $this->input->post('task_detail'),
             'nama'          => $this->input->post('nama')
         ];
 
@@ -102,6 +102,19 @@ class Task extends CI_Controller
             'id_member' => $_SESSION['id']
         ];
         echo json_encode(['data' => $this->defaultModel->findBy($data)->result_array()]);
+    }
+
+    public function getTaskRow()
+    {
+        if ($_GET['id_task'] != null) {
+            $data = [
+                'tasks.id' => $_GET['id_task'],
+                'tasks.is_active' => 1
+            ];
+            echo json_encode(['data' => $this->defaultModel->findBy($data)->row()]);
+        } else {
+            echo json_encode([]);
+        }
     }
 
     public function delete($id)

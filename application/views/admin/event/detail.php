@@ -785,7 +785,7 @@
                     },
                     {
                         data: 'created_on',
-                        render: function(data, rype, row) {
+                        render: function(data, type, row) {
                             return ` <span class = "badge rounded-pill bg-secondary" > ` + data + ` </span>`
                         }
                     },
@@ -1318,7 +1318,7 @@
                     task_keterangan: task_keterangan
                 },
                 success: function(json) {
-                    table_event_member.ajax.reload(function() {
+                    table_task.ajax.reload(function() {
                         Swal.close();
                         Toast.fire({
                             icon: json.status,
