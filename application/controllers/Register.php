@@ -12,6 +12,7 @@ class Register extends CI_Controller
 		$this->load->model('MemberModel');
 		$this->load->model('EventModel');
 		$this->load->model('LogUserModel');
+		$this->load->model('RawModel');
 		$this->load->model('UserModel');
 	}
 
@@ -23,25 +24,6 @@ class Register extends CI_Controller
 		];
 		$this->load->view('register/index', $data);
 	}
-
-	// public function save()
-	// {
-	// 	$data = [
-	// 		'nama'  => $this->input->post('nama'),
-	// 		'is_approve'  => 0,
-	// 		'telepon'  => $this->input->post('telepon'),
-	// 		'password'  => $this->input->post('password'),
-	// 		'email'  => $this->input->post('email'),
-	// 		'jenis'  => $this->input->post('jenis'),
-	// 		'kategori'  => $this->input->post('kategori')
-	// 	];
-
-	// 	if ($this->MemberModel->add($data)) {
-	// 		$this->session->set_flashdata(['status' => 'success', 'message' => 'Registrasi berhasil, silahkan masuk menggunakan email dan nomor telepon sebagai password untuk melengkapi data anggota unit.']);
-	// 		redirect(base_url('login'));
-	// 	}
-	// 	exit($this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan, silahkan menghubungi admin']));
-	// }
 
 	public function save_file($file, $slug, $folderPath)
 	{
@@ -159,21 +141,26 @@ class Register extends CI_Controller
 	}
 
 	public function token_cek(){
-		if($_POST['token']){
-			$where = [
-				'token' => $_POST['token'],
-				'is_active' => 1
-			];
-
-			// $cek = $this->AuthModel->cekLogin('event', $where)->row();
-			$test = $this->AuthModel->cekLogin('events', $where)->num_rows();
+		
+		$tanggal_sekarang = date('Y-m-d', NOW());
+		$token = $_POST['token'];
+		
+		if($token){
+			$sql = 'SELECT
+					*
+				FROM EVENTS
+					a
+				WHERE
+					is_active = 1 AND token = "' . $token . '" AND a.tanggal_buka_pendaftaran < "' . $tanggal_sekarang . '" AND a.tanggal_tutup_pendaftaran > "' . $tanggal_sekarang . '"';
+					
+			$test = $this->RawModel->sqlRaw($sql)->num_rows();
 
 			if($test > 0){
 				$this->session->set_flashdata(['status' => 'success', 'message' => 'Token valid']);
-				echo json_encode(['status' => 'success', 'message' => $_POST['token']]);
+				echo json_encode(['status' => 'success', 'message' => $token]);
 				// redirect('register');
 			}else{
-				echo json_encode(['status' => 'error', 'message' => 'Token Invalid']);
+				echo json_encode(['status' => 'error', 'message' => 'Token Invalid/Pendaftaran Ditutup']);
 			}
 		} else {
 			echo json_encode([]);

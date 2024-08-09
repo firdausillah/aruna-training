@@ -65,7 +65,7 @@
       <!-- / Menu -->
 
       <!-- Layout container -->
-      <div class="layout-page" style="">
+      <div class="layout-page">
         <!-- Navbar -->
 
         <?php $this->load->view('layout_member/navbar') ?>
