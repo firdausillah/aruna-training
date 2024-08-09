@@ -35,11 +35,21 @@ class Event_activity_t extends CI_Controller
         $data = [
             'id_event' => $_POST['id_event'], 
             'nama' => $_POST['nama'], 
+            'is_assesment' => $_POST['is_assesment'], 
             'is_active' => 1
         ];
 
         if ($this->ActivityModel->add($data)) {
             echo json_encode(['status' => 'success', 'message' => 'Data berhasil ditambahkan']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
+        }
+    }
+
+    public function update_is_assesment()
+    {
+        if ($this->ActivityModel->update(['id' => $_POST['id']], ['is_assesment' => $_POST['is_assesment']])) {
+            echo json_encode(['status' => 'success', 'message' => 'Data berhasil diupdate']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
         }

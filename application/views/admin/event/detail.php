@@ -169,6 +169,7 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama</th>
+                                        <th>Assesment</th>
                                         <th width="10%">Actions</th>
                                     </tr>
                                 </thead>
@@ -412,6 +413,13 @@
                     <div class="mb-3">
                         <label class="form-label" for="nama">Nama Kegiatan <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nama" name="nama" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="is_assesment">Assesment</label>
+                        <select class="form-control" name="is_assesment" id="is_assesment">
+                            <option value="0">Tidak</option>
+                            <option value="1">Iya</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -749,6 +757,29 @@
                     },
                     {
                         data: 'nama'
+                    },
+                    {
+                        data: 'is_assesment',
+                        render: function(data, type, row) {
+                            if (data == 1) {
+                                assesment = 'Iya';
+                            } else {
+                                assesment = 'Tidak';
+                            }
+
+                            return `<td>` +
+                                `<div class='btn-group'>` +
+                                `<button type='button' class='btn btn-sm btn-info dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='true'>` +
+                                assesment +
+                                `</button>` +
+                                `<ul class='dropdown-menu' style='position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 39.5px, 0px);' data-popper-placement='bottom-start'>` +
+                                `<li><a class='dropdown-item' href='javascript:void(0);' onClick='action_update_is_assesment(` + row.id + `,1)'>Iya</a></li>` +
+                                `<li><a class='dropdown-item' href='javascript:void(0);' onClick='action_update_is_assesment(` + row.id + `,0)'>Tidak</a></li>` +
+                                `</ul>` +
+                                `</div>` +
+                                `</td>`
+
+                        }
                     },
                     {
                         data: 'id',
@@ -1266,6 +1297,7 @@
 
         function action_form_add_activity() {
             let nama = $('#form_add_activity #nama').val();
+            let is_assesment = $('#form_add_activity #is_assesment').val();
 
             Loading.fire({})
             $.ajax({
@@ -1274,7 +1306,8 @@
                 dataType: 'json',
                 data: {
                     nama: nama,
-                    id_event: id_event
+                    id_event: id_event,
+                    is_assesment: is_assesment
                 },
                 success: function(json) {
                     table_activity.ajax.reload(function() {
@@ -1288,12 +1321,40 @@
                     $("#form_add_activity").modal('hide');
 
                     nama = '';
+                    is_assesment = '';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', status, error);
                 }
             });
         }
+
+        function action_update_is_assesment(id, is_assesment) {
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_activity_t/update_is_assesment') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    is_assesment: is_assesment
+                },
+                success: function(json) {
+                    table_activity.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                    table_activity.ajax.reload();
+                }
+            });
+        }
+
 
         function action_delete_activity(id_activity, id_event) {
             Swal.fire({
@@ -1398,7 +1459,7 @@
                 }
             });
         }
-        
+
         function action_delete_certificate(id_certificate, id_event) {
             Swal.fire({
                 title: "Anda yakin?",
