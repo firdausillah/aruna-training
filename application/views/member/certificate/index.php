@@ -10,7 +10,7 @@
                 </div>
                 <div class="text-center d-flex justify-content-center">
                     <?php if ($certificate != null) : ?>
-                        <a href="<?= base_url('member/id_card/cetak'); ?>" target="_blank" class="btn btn-light">Download Id Card</a>
+                        <a href="<?= base_url('uploads/file/certificate/'.$certificate->file); ?>" target="_blank" class="btn btn-light">Download Sertifikat</a>
                     <?php else : ?>
                         <div class="alert alert-danger mb-0 col-sm-6 alert-dismissible" role="alert">eSertifikat Belum Tersedia.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
                     <?php endif ?>

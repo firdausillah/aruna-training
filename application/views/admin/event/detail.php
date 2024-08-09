@@ -87,16 +87,11 @@
                             Presensi Akumulasi
                         </button>
                     </li>
-                    <!-- <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#tugas" aria-controls="tugas" aria-selected="fasle">
-                        Tugas
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#data_unit" aria-controls="data_unit" aria-selected="fasle">
-                        DATA PENDAFTARAN UNIT
-                    </button>
-                </li> -->
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#certificate" aria-controls="certificate" aria-selected="fasle">
+                            Sertifikat
+                        </button>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="peserta" role="tabpanel">
@@ -193,6 +188,26 @@
                                         <th>Aktifitas</th>
                                         <th>Foto</th>
                                         <th>Waktu Presensi</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="certificate" role="tabpanel">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="my-auto">Sertifikat <?= @$event->nama ?></h5>
+                            <button type="button" class="btn btn-sm btn-success" onclick="open_form_add_certificate()">
+                                Tambah data
+                            </button>
+                        </div>
+                        <div class="table-responsive text-nowrap mt-2">
+                            <table id="table_certificate" class="table table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Nama</th>
+                                        <th>File</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -409,6 +424,37 @@
         </div>
     </div>
     <!-- END Modal Event Activity -->
+
+    <!-- BEGIN Modal Certificate -->
+    <div class="modal fade" id="form_add_certificate" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="mb-3">
+                        <label class="form-label" for="nama">Nama Peserta <span class="text-danger">*</span></label>
+                        <select name="id_member" id="id_member" class="form-control">
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="file">File <span class="text-danger">*</span></label>
+                        <input type="file" name="file" id="file" class="form-control"></input>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary" onclick="action_form_add_certificate()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal Certificate -->
 
     <!-- BEGIN Modal Edit Catatan Task -->
     <div class="modal fade" id="form_edit_task" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -722,7 +768,7 @@
             });
             // END Event Activity
 
-            // BEGIN Event Activity
+            // BEGIN Event Presensi Akumulasi
             table_presensi_akumulasi = $('#table_presensi_akumulasi').DataTable({
                 responsive: true,
                 ajax: '<?= base_url('admin/_event/event_member_t/getPresensiAkumulasi?id_event=') ?>' + id_event,
@@ -756,7 +802,45 @@
                     targets: 0
                 }]
             });
-            // END Event Activity
+            // END Event Presensi Akumulasi
+
+            // BEGIN Event Certificate
+            table_certificate = $('#table_certificate').DataTable({
+                responsive: true,
+                ajax: '<?= base_url('admin/_event/event_certificate_t/getCertificate?id_event=') ?>' + id_event,
+                columns: [{
+                        data: 'id',
+                        visible: false
+                    },
+                    {
+                        data: 'member_nama'
+                    },
+
+                    {
+                        data: 'file',
+                        render: function(data, type, row) {
+                            return `<a href="<?= base_url('uploads/file/certificate/') ?>` + data + `" class="btn btn-success rounded-pill btn-sm" target='_blank'>
+                                        Lihat Sertifikat
+                                    </a>`;
+                        }
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<span>' +
+                                '<a class="text-danger" href="#" onclick="return action_delete_activity(' + data + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
+                                '</span>'
+
+                        }
+                    }
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }]
+            });
+            // END Event Certificate
 
             // BEGIN Event Tugas
             table_task = $('#table_task').DataTable({
@@ -1247,6 +1331,145 @@
             });
         }
         // END Event Activity
+
+        // BEGIN Event Certificate
+        function open_form_add_certificate() {
+            $("#form_add_certificate").modal('show');
+            Loading.fire({})
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_certificate_t/getOptEventMember?id_event=') ?>' + id_event,
+                type: 'POST',
+                dataType: 'json',
+                success: function(json) {
+                    if (json != undefined) {
+                        var newOptions = json.data;
+                        var select_certificate = $("#form_add_certificate #id_member");
+                        select_certificate.empty(); // remove old options
+                        $.each(newOptions, function(key, val) {
+                            select_certificate.append($("<option></option>")
+                                .attr("value", val['id_member']).text(val['member_nama']));
+                        });
+                    }
+                    Swal.close()
+                }
+            });
+
+        }
+
+        function action_form_add_certificate() {
+            // let id_event = $('#id_event').val();
+            let id_member = $('#form_add_certificate #id_member').val();
+            let fileInput = $('#form_add_certificate #file').prop('files')[0];
+
+            if (!fileInput) {
+                alert('Please select a file.');
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append('id_event', id_event);
+            formData.append('id_member', id_member);
+            formData.append('file', fileInput);
+
+            Loading.fire({});
+
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_certificate_t/save_event_certificate') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                contentType: false, // Set the content type to false as jQuery will tell the server its a query string request
+                success: function(json) {
+                    table_certificate.ajax.reload(function() {
+                        Swal.close();
+                        Toast.fire({
+                            icon: json.status,
+                            title: json.message
+                        });
+                    });
+
+                    $("#form_add_certificate").modal('hide');
+
+                    $('#form_add_certificate')[0].reset(); // Reset the form
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+        }
+
+
+        // function action_form_add_certificate() {
+        //     let id_member = $('#form_add_certificate #id_member').val();
+        //     let file = $('#form_add_certificate #file')[0].files[0];
+
+        //     Loading.fire({})
+        //     $.ajax({
+        //         url: '<?= base_url('admin/_event/event_certificate_t/save_event_certificate') ?>',
+        //         type: 'POST',
+        //         dataType: 'json',
+        //         data: {
+        //             id_event: id_event,
+        //             id_member: id_member,
+        //             file: file
+        //         },
+        //         success: function(json) {
+        //             table_certificate.ajax.reload(function() {
+        //                 Swal.close();
+        //                 Toast.fire({
+        //                     icon: json.status,
+        //                     title: json.message
+        //                 });
+        //             });
+
+        //             $("#form_add_certificate").modal('hide');
+
+        //             id_certificate = '';
+        //             file = '';
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error('Error:', status, error);
+        //         }
+        //     });
+        // }
+
+        function action_delete_certificate(id_certificate, id_event) {
+            Swal.fire({
+                title: "Anda yakin?",
+                text: "Data akan dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= base_url('admin/_event/event_certificate_t/delete') ?>',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id_certificate: id_certificate,
+                            id_event: id_event
+                        },
+                        success: function(json) {
+                            table_certificate.ajax.reload(function() {
+                                Swal.close();
+                                Toast.fire({
+                                    icon: json.status,
+                                    title: json.message
+                                });
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', status, error);
+                        }
+                    });
+                }
+            });
+        }
+        // END Event Certificate
 
         // BEGIN Task
         function get_task(id_member) {

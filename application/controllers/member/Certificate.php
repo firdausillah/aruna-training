@@ -17,7 +17,7 @@ class Certificate extends CI_Controller
     {
         $data = [
             'title' => 'Id Card',
-            'certificate' => $this->CertificateModel->findBy(['certificates.id' => $_SESSION['id']])->row(),
+            'certificate' => $this->CertificateModel->findBy(['certificates.id_member' => $_SESSION['id']])->row(),
             'content' => 'member/certificate/index'
         ];
         // print_r($data['certificate']); exit();
