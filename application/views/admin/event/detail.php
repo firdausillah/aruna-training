@@ -1398,42 +1398,7 @@
                 }
             });
         }
-
-
-        // function action_form_add_certificate() {
-        //     let id_member = $('#form_add_certificate #id_member').val();
-        //     let file = $('#form_add_certificate #file')[0].files[0];
-
-        //     Loading.fire({})
-        //     $.ajax({
-        //         url: '<?= base_url('admin/_event/event_certificate_t/save_event_certificate') ?>',
-        //         type: 'POST',
-        //         dataType: 'json',
-        //         data: {
-        //             id_event: id_event,
-        //             id_member: id_member,
-        //             file: file
-        //         },
-        //         success: function(json) {
-        //             table_certificate.ajax.reload(function() {
-        //                 Swal.close();
-        //                 Toast.fire({
-        //                     icon: json.status,
-        //                     title: json.message
-        //                 });
-        //             });
-
-        //             $("#form_add_certificate").modal('hide');
-
-        //             id_certificate = '';
-        //             file = '';
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error('Error:', status, error);
-        //         }
-        //     });
-        // }
-
+        
         function action_delete_certificate(id_certificate, id_event) {
             Swal.fire({
                 title: "Anda yakin?",
