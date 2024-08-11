@@ -92,6 +92,11 @@
                             Sertifikat
                         </button>
                     </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#assesment" aria-controls="assesment" aria-selected="fasle">
+                            Assesmen
+                        </button>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="peserta" role="tabpanel">
@@ -213,6 +218,18 @@
                                 </thead>
                             </table>
                         </div>
+                    </div>
+                    <div class="tab-pane fade" id="assesment" role="tabpanel">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="my-auto">Assesmen <?= @$event->nama ?></h5>
+                        </div>
+                        <div class="input-group mb-3" id="form_member_assesment">
+                            <select class="form-select" id="id_member_assesment" aria-label="Example select with button addon">
+                                <option selected="">Choose...</option>
+                            </select>
+                            <button class="btn btn-outline-primary" type="button" onclick="get_assesment_chart()">Filter</button>
+                        </div>
+                        <div id="chart_assesment"></div>
                     </div>
                 </div>
             </div>
@@ -560,9 +577,11 @@
     <!-- END Modal Detail Task -->
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="<?= base_url() ?>assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <script type="text/javascript">
         var id_event = <?= @$event->id ?>;
+        var options_chart;
         $(document).ready(function() {
             // BEGIN Event Trainer
             table_event_member = $('#table_event_member').DataTable({
@@ -872,6 +891,26 @@
                 }]
             });
             // END Event Certificate
+
+            // BEGIN Event Opt Member Assesment
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_member_t/getEventMember?id_event=') ?>' + id_event,
+                type: 'POST',
+                dataType: 'json',
+                success: function(json) {
+                    if (json != undefined) {
+                        var newOptions = json.data;
+                        var select_member = $("#form_member_assesment #id_member_assesment");
+                        select_member.empty(); // remove old options
+                        $.each(newOptions, function(key, val) {
+                            select_member.append($("<option></option>")
+                                .attr("value", val['id']).text(val['nama']));
+                        });
+                    }
+                    Swal.close()
+                }
+            });
+            // END Event Opt Member Assesment
 
             // BEGIN Event Tugas
             table_task = $('#table_task').DataTable({
@@ -1496,6 +1535,88 @@
             });
         }
         // END Event Certificate
+
+        // BEGIN Event Assesment
+        var chart; // Global variable for the chart
+
+        function get_assesment_chart() {
+            var options_chart;
+            id_member_assesment = $('#id_member_assesment').val();
+
+            $.ajax({
+                url: '<?= base_url('admin/_event/event_assesment_t/getAssesmentChart') ?>',
+                type: 'GET',
+                data: {
+                    id_event: id_event,
+                    id_member: id_member_assesment
+                },
+                dataType: 'json',
+                success: function(json) {
+                    var dut = [];
+                    $.map(json[0].data, function(val, i) {
+                        var obj = {
+                            'name': val.activity_nama, // Gunakan properti 'name' dari data asli
+                            'data': val.point.map(Number) // Pastikan nilai di dalam 'data' adalah angka
+                        };
+                        dut.push(obj); // Tambahkan objek ke array 'dut'
+                    });
+
+                    if (json != undefined) {
+                        options_chart = {
+                            series: dut,
+                            chart: {
+                                type: 'bar',
+                                height: 350
+                            },
+                            plotOptions: {
+                                bar: {
+                                    horizontal: false,
+                                    columnWidth: '30%',
+                                    endingShape: 'rounded'
+                                },
+                            },
+                            dataLabels: {
+                                enabled: true
+                            },
+                            stroke: {
+                                show: true,
+                                width: 2,
+                                colors: ['transparent']
+                            },
+                            xaxis: {
+                                categories: json[1].tanggal,
+                            },
+                            yaxis: {
+                                title: {
+                                    text: 'Poin kemampuan (range 1-5)'
+                                }
+                            },
+                            fill: {
+                                opacity: 1
+                            },
+                            tooltip: {
+                                y: {
+                                    formatter: function(val) {
+                                        return "" + val + " Poin"
+                                    }
+                                }
+                            }
+                        };
+
+                        if (chart) {
+                            // Update chart with new data
+                            chart.updateOptions(options_chart);
+                        } else {
+                            // Create new chart if it doesn't exist
+                            chart = new ApexCharts(document.querySelector("#chart_assesment"), options_chart);
+                            chart.render();
+                        }
+                    }
+                }
+            });
+        }
+
+        // END Event Assesment 
 
         // BEGIN Task
         function get_task(id_member) {
