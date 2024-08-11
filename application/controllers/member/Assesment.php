@@ -16,6 +16,7 @@ class Assesment extends CI_Controller
         $this->load->model('RawModel');
         $this->load->helper('slug');
         $this->load->helper('upload_file');
+        $this->load->library('form_validation');
 
         if ($this->session->userdata('role') != 'member') {
             $this->session->set_flashdata(['status' => 'error', 'message' => 'Anda tidak memiliki izin untuk mengakses halaman ini.']);
@@ -39,62 +40,51 @@ class Assesment extends CI_Controller
     public function save()
     {
 
-        $member_nama = $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row()->nama;
+        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
 
-        $cek_assesment = $this->AuthModel->cekLogin('assesments', ['id_member' => $_SESSION['id'], 'is_active' => 1, 'tanggal' => $_POST['tanggal']])->num_rows();
-        // print_r($cek_assesment); exit();
-
-        if($cek_assesment == 0 || $cek_assesment == null){
-            $data = [];
-            $i = 0;
-    
-            while (isset($_POST["id_activity$i"]) && isset($_POST["point$i"])) {
-    
-                $activity_nama = $this->ActivityModel->findBy(['id' => $_POST["id_activity$i"]])->row()->nama;
-                $data = [
-                    'is_active' => 1,
-                    'id_activity'   => $_POST["id_activity$i"],
-                    'id_member'   => $_SESSION['id'],
-                    'id_event'  => $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row()->id_event,
-                    'member_nama'   => $member_nama,
-                    'event_nama'    => $_SESSION['event_nama'],
-                    'point'     => $_POST["point$i"],
-                    'tanggal'     => $_POST['tanggal'],
-                    'activity_nama' => $activity_nama
-                ];
-                $i++;
-                
-                try {
-                    $this->AssesmentModel->add($data);
-                } catch (Exception $e) {
-                    exit($this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']));
-                }
-            }
-            // exit();
-    
-            $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dimasukan']);
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata(['status' => 'error', 'message' => 'Tanggal Harus diisi!']);
             redirect(base_url($this->url_index));
+        } else {
+            $member_nama = $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row()->nama;
+    
+            $cek_assesment = $this->AuthModel->cekLogin('assesments', ['id_member' => $_SESSION['id'], 'is_active' => 1, 'tanggal' => $_POST['tanggal']])->num_rows();
+            // print_r($cek_assesment); exit();
+    
+            if($cek_assesment == 0 || $cek_assesment == null){
+                $data = [];
+                $i = 0;
+        
+                while (isset($_POST["id_activity$i"]) && isset($_POST["point$i"])) {
+        
+                    $activity_nama = $this->ActivityModel->findBy(['id' => $_POST["id_activity$i"]])->row()->nama;
+                    $data = [
+                        'is_active' => 1,
+                        'id_activity'   => $_POST["id_activity$i"],
+                        'id_member'   => $_SESSION['id'],
+                        'id_event'  => $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row()->id_event,
+                        'member_nama'   => $member_nama,
+                        'event_nama'    => $_SESSION['event_nama'],
+                        'point'     => $_POST["point$i"],
+                        'tanggal'     => $_POST['tanggal'],
+                        'activity_nama' => $activity_nama
+                    ];
+                    $i++;
+                    
+                    try {
+                        $this->AssesmentModel->add($data);
+                    } catch (Exception $e) {
+                        exit($this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']));
+                    }
+                }
+                // exit();
+        
+                $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dimasukan']);
+                redirect(base_url($this->url_index));
+            }
+            $this->session->set_flashdata(['status' => 'warning', 'message' => 'Anda sudah melakukan assesment untuk tanggal ini!']);
         }
-        $this->session->set_flashdata(['status' => 'warning', 'message' => 'Anda sudah melakukan assesment untuk tanggal ini!']);
+
     }
 
-    public function delete($id)
-    {
-        if ($this->AssesmentModel->delete(['id' => $id])) {
-            $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dihapus']);
-        } else {
-            $this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-        }
-        redirect($this->url_index);
-    }
-
-    public function nonaktif($id)
-    {
-        if ($this->AssesmentModel->update(['id' => $id], ['is_active' => 0])) {
-            $this->session->set_flashdata(['status' => 'success', 'message' => 'Data berhasil dinonaktifkan']);
-        } else {
-            $this->session->set_flashdata(['status' => 'error', 'message' => 'Oops! Terjadi kesalahan']);
-        }
-        redirect($this->url_index);
-    }
 }
