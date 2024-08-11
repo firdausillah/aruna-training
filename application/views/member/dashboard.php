@@ -19,7 +19,7 @@
                         Catatan Admin: <?= $member->keterangan ?>
                     </div>
                 <?php else: ?>
-                    <div class="row">
+                    <div class="row col-md-6 mx-auto">
                         <?php
                         $data = [
                             [
