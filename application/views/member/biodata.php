@@ -8,7 +8,7 @@
             </div>
             <div class="d-flex flex-column">
                 <span class="text-primary"><?= @$member->nama ?></span>
-                <small class="text-light" style="">Peserta - <?= @$_SESSION['event_nama'] ?></small>
+                <small class="text-light">Peserta - <?= @$_SESSION['event_nama'] ?></small>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="nama" name="nama" value="<?= @$member->nama ?>" placeholder="" autofocus required />
+                    <input type="text" class="form-control" id="nama" name="nama" value="<?= @$member->nama ?>" autofocus required />
                 </div>
             </div>
             <div class="col-md-6">
@@ -88,7 +88,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary w-100" style="">Simpan</button>
+        <button type="submit" class="btn btn-primary w-100">Simpan</button>
         <!-- <a href="<?= base_url() ?>admin/event" class="btn btn-secondary">Batal</a> -->
         </form>
     </div>

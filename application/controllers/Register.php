@@ -160,7 +160,7 @@ class Register extends CI_Controller
 				echo json_encode(['status' => 'success', 'message' => $token]);
 				// redirect('register');
 			}else{
-				echo json_encode(['status' => 'error', 'message' => 'Token Invalid/Pendaftaran Ditutup']);
+				echo json_encode(['status' => 'error', 'message' => 'Token invalid/Pelatihan tidak tersedia']);
 			}
 		} else {
 			echo json_encode([]);
