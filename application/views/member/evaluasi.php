@@ -52,6 +52,7 @@
                                     <label class="form-check-label" for="kesesuaian_pelatihan_dengan_kebutuhan5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="kesesuaian_pelatihan_dengan_kebutuhanError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Narasumber & Fasilitator</label>
@@ -77,6 +78,7 @@
                                     <label class="form-check-label" for="narasumber_fasilitator5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="narasumber_fasilitatorError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Materi pelatihan</label>
@@ -102,6 +104,7 @@
                                     <label class="form-check-label" for="materi_pelatihan5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="materi_pelatihanError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Metode, bahan dan alat</label>
@@ -127,6 +130,7 @@
                                     <label class="form-check-label" for="metode_bahan_alat5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="metode_bahan_alatError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Pengaturan waktu untuk berbagai keperluan</label>
@@ -152,6 +156,7 @@
                                     <label class="form-check-label" for="pengaturan_waktu5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="pengaturan_waktuError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Penyerapan materi oleh peserta</label>
@@ -177,6 +182,7 @@
                                     <label class="form-check-label" for="penyerapan_materi_oleh_peserta5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="penyerapan_materi_oleh_pesertaError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Partisipasi peserta</label>
@@ -202,6 +208,7 @@
                                     <label class="form-check-label" for="partisipasi_peserta5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="partisipasi_pesertaError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Akomodasi dan konsumsi</label>
@@ -227,6 +234,7 @@
                                     <label class="form-check-label" for="akomodasi_konsumsi5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="akomodasi_konsumsiError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Pelaksanaan secara keseluruhan</label>
@@ -252,6 +260,7 @@
                                     <label class="form-check-label" for="pelaksanaan_secara_keseluruhan5">Sangat Baik</label>
                                 </div>
                             </div>
+                            <small id="pelaksanaan_secara_keseluruhanError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Komentar</label>
@@ -262,7 +271,7 @@
                             <textarea class="form-control" name="usul_saran" id="usul_saran" cols="20" rows="5"></textarea>
                         </div>
 
-                        <button type="button" class="btn btn-primary" onClick="action_submit()">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
             </div>
@@ -273,21 +282,85 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
-    function action_submit(id_activity, id_event) {
-        Swal.fire({
-            title: "Apakah anda sudah yakin dengan jawaban anda?",
-            text: "Pastikan data sudah terisi semua. Data akan dikirim sebagai pertimbangan penyampaian materi oleh pemateri",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yakin!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $('#form_evaluasi_akhir').submit();
-                // alert('ini bro');
+    $('#form_evaluasi_akhir').on('submit', function(e) {
+        e.preventDefault();
 
-            }
-        });
-    }
+        let isValid = true;
+
+        if (!$('input[name="pelaksanaan_secara_keseluruhan"]:checked').val()) {
+            $('#pelaksanaan_secara_keseluruhanError').show();
+            isValid = false;
+        } else {
+            $('#pelaksanaan_secara_keseluruhanError').hide();
+        }
+
+        if (!$('input[name="kesesuaian_pelatihan_dengan_kebutuhan"]:checked').val()) {
+            $('#kesesuaian_pelatihan_dengan_kebutuhanError').show();
+            isValid = false;
+        } else {
+            $('#kesesuaian_pelatihan_dengan_kebutuhanError').hide();
+        }
+
+        if (!$('input[name="narasumber_fasilitator"]:checked').val()) {
+            $('#narasumber_fasilitatorError').show();
+            isValid = false;
+        } else {
+            $('#narasumber_fasilitatorError').hide();
+        }
+
+        if (!$('input[name="materi_pelatihan"]:checked').val()) {
+            $('#materi_pelatihanError').show();
+            isValid = false;
+        } else {
+            $('#materi_pelatihanError').hide();
+        }
+
+        if (!$('input[name="metode_bahan_alat"]:checked').val()) {
+            $('#metode_bahan_alatError').show();
+            isValid = false;
+        } else {
+            $('#metode_bahan_alatError').hide();
+        }
+
+        if (!$('input[name="pengaturan_waktu"]:checked').val()) {
+            $('#pengaturan_waktuError').show();
+            isValid = false;
+        } else {
+            $('#pengaturan_waktuError').hide();
+        }
+
+        if (!$('input[name="penyerapan_materi_oleh_peserta"]:checked').val()) {
+            $('#penyerapan_materi_oleh_pesertaError').show();
+            isValid = false;
+        } else {
+            $('#penyerapan_materi_oleh_pesertaError').hide();
+        }
+
+        if (!$('input[name="partisipasi_peserta"]:checked').val()) {
+            $('#partisipasi_pesertaError').show();
+            isValid = false;
+        } else {
+            $('#partisipasi_pesertaError').hide();
+        }
+
+        if (!$('input[name="akomodasi_konsumsi"]:checked').val()) {
+            $('#akomodasi_konsumsiError').show();
+            isValid = false;
+        } else {
+            $('#akomodasi_konsumsiError').hide();
+        }
+
+        if (!$('input[name="pelaksanaan_secara_keseluruhan"]:checked').val()) {
+            $('#pelaksanaan_secara_keseluruhanError').show();
+            isValid = false;
+        } else {
+            $('#pelaksanaan_secara_keseluruhanError').hide();
+        }
+
+        // Jika tidak ada error, form akan disubmit
+        if (isValid) {
+            $('#form_evaluasi_akhir')[0].reset();
+            this.submit();
+        }
+    });
 </script>
