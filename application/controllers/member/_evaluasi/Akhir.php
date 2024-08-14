@@ -19,7 +19,7 @@ class Akhir extends CI_Controller
         } 
     }
 
-    public function save_evaluasi_akhir()
+    public function save()
     {
 
         // print_r($_POST);

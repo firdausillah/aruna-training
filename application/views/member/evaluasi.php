@@ -16,20 +16,156 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="evaluasi_harian" role="tabpanel">
-                    <p>
-                        Icing pastry pudding oat cake. Lemon drops cotton candy caramels cake caramels sesame snaps
-                        powder. Bear claw candy topping.
-                    </p>
-                    <p class="mb-0">
-                        Tootsie roll fruitcake cookie. Dessert topping pie. Jujubes wafer carrot cake jelly. Bonbon
-                        jelly-o jelly-o ice cream jelly beans candy canes cake bonbon. Cookie jelly beans marshmallow
-                        jujubes sweet.
-                    </p>
+                    <form action="<?= base_url('member/_evaluasi/harian/save') ?>" method="POST" id="form_evaluasi_harian">
+                        <div class="mb-3">
+                            <label for="date" class="fs-5 fs-md-6 fw-medium">Tanggal <span class="text-danger">*</span></label>
+                            <input type="date" name="tanggal" id="tanggal" class="form-control">
+                            <small id="tanggalError" class="form-text text-danger" style="display:none;">Pilih tanggal!</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan <span class="text-danger">*</span></label>
+                            <div class="col-lg-8 d-flex flex-column">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="keadaan_member" id="keadaan_member3" value="3">
+                                    <label class="form-check-label" for="keadaan_member3">Baik</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="keadaan_member" id="keadaan_member2" value="2">
+                                    <label class="form-check-label" for="keadaan_member2">Biasa</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="keadaan_member" id="keadaan_member1" value="1">
+                                    <label class="form-check-label" for="keadaan_member1">Tidak Baik</label>
+                                </div>
+                            </div>
+                            <small id="keadaan_memberError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Alasan keadaan anda hari ini</label>
+                            <textarea class="form-control" name="keadaan_alasan" id="keadaan_alasan" cols="20" rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6">Pemahaman Materi</label> <br>
+                            <small>Silahkan isi pada materi hari ini</small>
+                            <div class="mt-2">
+                                <?php foreach ($activities as $key => $value) : ?>
+                                    <div class="row col-11 mx-auto">
+                                        <div class="col-md-4">
+                                            <label class="fw-medium fs-5 fs-md-6 mb-2"><?= $value->nama ?></label>
+                                            <input type="hidden" name="id_activity<?= $key ?>" value="<?= $value->id ?>">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="d-flex flex-column flex-md-row justify-content-evenly mx-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="point<?= $key ?>" id="point1<?= $key ?>" value="1">
+                                                    <label class="form-check-label" for="point1<?= $key ?>">Sangat Kurang</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="point<?= $key ?>" id="point2<?= $key ?>" value="2">
+                                                    <label class="form-check-label" for="point2<?= $key ?>">Kurang</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="point<?= $key ?>" id="point3<?= $key ?>" value="3">
+                                                    <label class="form-check-label" for="point3<?= $key ?>">Cukup</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="point<?= $key ?>" id="point4<?= $key ?>" value="4">
+                                                    <label class="form-check-label" for="point4<?= $key ?>">Baik</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="point<?= $key ?>" id="point5<?= $key ?>" value="5">
+                                                    <label class="form-check-label" for="point5<?= $key ?>">Sangat Baik</label>
+                                                </div>
+                                            </div>
+                                            <small id="narasumber_fasilitatorError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Saran untuk materi</label>
+                            <textarea class="form-control" name="materi_saran" id="materi_saran" cols="20" rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6">Performa Pemateri</label> <br>
+                            <small>Silahkan isi pada Pemateri hari ini</small>
+                            <div class="mt-2">
+                                <?php foreach ($trainers as $key => $value) : ?>
+                                    <div class="row col-11 mx-auto">
+                                        <div class="col-md-4">
+                                            <label class="fw-medium fs-5 fs-md-6 mb-2"><?= $value->nama ?></label>
+                                            <input type="hidden" name="id_trainer<?= $key ?>" value="<?= $value->id ?>">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="d-flex flex-column flex-md-row justify-content-evenly mx-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="t_point<?= $key ?>" id="t_point1<?= $key ?>" value="1">
+                                                    <label class="form-check-label" for="t_point1<?= $key ?>">Sangat Kurang</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="t_point<?= $key ?>" id="t_point2<?= $key ?>" value="2">
+                                                    <label class="form-check-label" for="t_point2<?= $key ?>">Kurang</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="t_point<?= $key ?>" id="t_point3<?= $key ?>" value="3">
+                                                    <label class="form-check-label" for="t_point3<?= $key ?>">Cukup</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="t_point<?= $key ?>" id="t_point4<?= $key ?>" value="4">
+                                                    <label class="form-check-label" for="t_point4<?= $key ?>">Baik</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="t_point<?= $key ?>" id="t_point5<?= $key ?>" value="5">
+                                                    <label class="form-check-label" for="t_point5<?= $key ?>">Sangat Baik</label>
+                                                </div>
+                                            </div>
+                                            <small id="narasumber_fasilitatorError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Saran untuk pemateri</label>
+                            <textarea class="form-control" name="trainer_saran" id="trainer_saran" cols="20" rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan <span class="text-danger">*</span></label>
+                            <div class="col-lg-8 d-flex flex-column">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="pelayanan_panitia" id="pelayanan_panitia3" value="3">
+                                    <label class="form-check-label" for="pelayanan_panitia3">Baik</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="pelayanan_panitia" id="pelayanan_panitia2" value="2">
+                                    <label class="form-check-label" for="pelayanan_panitia2">Biasa</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="pelayanan_panitia" id="pelayanan_panitia1" value="1">
+                                    <label class="form-check-label" for="pelayanan_panitia1">Tidak Baik</label>
+                                </div>
+                            </div>
+                            <small id="pelayanan_panitiaError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Mengapa <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="pelayanan_alasan" id="pelayanan_alasan" cols="20" rows="5"></textarea>
+                            <small id="pelayanan_alasanError" class="form-text text-danger" style="display:none;">Alasan harus diisi!</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Komentar dan Usulan <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="komentar_usulan" id="komentar_usulan" cols="20" rows="5"></textarea>
+                            <small id="komentar_usulanError" class="form-text text-danger" style="display:none;">Komentar dan usulan harus diisi!</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+
                 </div>
                 <div class="tab-pane fade" id="evaluasi_akhir" role="tabpanel">
-                    <form action="<?= base_url('member/_evaluasi/akhir/save_evaluasi_akhir') ?>" method="POST" id="form_evaluasi_akhir">
+                    <form action="<?= base_url('member/_evaluasi/akhir/save') ?>" method="POST" id="form_evaluasi_akhir">
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="kesesuaian_pelatihan_dengan_kebutuhan" id="kesesuaian_pelatihan_dengan_kebutuhan1" value="1">
@@ -55,7 +191,7 @@
                             <small id="kesesuaian_pelatihan_dengan_kebutuhanError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Narasumber & Fasilitator</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Narasumber & Fasilitator <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="narasumber_fasilitator" id="narasumber_fasilitator1" value="1">
@@ -81,7 +217,7 @@
                             <small id="narasumber_fasilitatorError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Materi pelatihan</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Materi pelatihan <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="materi_pelatihan" id="materi_pelatihan1" value="1">
@@ -107,7 +243,7 @@
                             <small id="materi_pelatihanError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Metode, bahan dan alat</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Metode, bahan dan alat <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="metode_bahan_alat" id="metode_bahan_alat1" value="1">
@@ -133,7 +269,7 @@
                             <small id="metode_bahan_alatError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Pengaturan waktu untuk berbagai keperluan</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Pengaturan waktu untuk berbagai keperluan <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pengaturan_waktu" id="pengaturan_waktu1" value="1">
@@ -159,7 +295,7 @@
                             <small id="pengaturan_waktuError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Penyerapan materi oleh peserta</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Penyerapan materi oleh peserta <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="penyerapan_materi_oleh_peserta" id="penyerapan_materi_oleh_peserta1" value="1">
@@ -185,7 +321,7 @@
                             <small id="penyerapan_materi_oleh_pesertaError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Partisipasi peserta</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Partisipasi peserta <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="partisipasi_peserta" id="partisipasi_peserta1" value="1">
@@ -211,7 +347,7 @@
                             <small id="partisipasi_pesertaError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Akomodasi dan konsumsi</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Akomodasi dan konsumsi <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="akomodasi_konsumsi" id="akomodasi_konsumsi1" value="1">
@@ -237,7 +373,7 @@
                             <small id="akomodasi_konsumsiError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Pelaksanaan secara keseluruhan</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Pelaksanaan secara keseluruhan <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pelaksanaan_secara_keseluruhan" id="pelaksanaan_secara_keseluruhan1" value="1">
@@ -282,6 +418,53 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
+    $('#form_evaluasi_harian').on('submit', function(e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        if (!$('#tanggal').val()) {
+            $('#tanggalError').show();
+            isValid = false;
+        } else {
+            $('#tanggalError').hide();
+        }
+
+        if (!$('#pelayanan_alasan').val()) {
+            $('#pelayanan_alasanError').show();
+            isValid = false;
+        } else {
+            $('#pelayanan_alasanError').hide();
+        }
+
+        if (!$('input[name="keadaan_member"]:checked').val()) {
+            $('#keadaan_memberError').show();
+            isValid = false;
+        } else {
+            $('#keadaan_memberError').hide();
+        }
+
+        if (!$('#komentar_usulan').val()) {
+            $('#komentar_usulanError').show();
+            isValid = false;
+        } else {
+            $('#komentar_usulanError').hide();
+        }
+
+        if (!$('input[name="pelayanan_panitia"]:checked').val()) {
+            $('#pelayanan_panitiaError').show();
+            isValid = false;
+        } else {
+            $('#pelayanan_panitiaError').hide();
+        }
+
+        // Jika tidak ada error, form akan disubmit
+        if (isValid) {
+            $('#form_evaluasi_akhir')[0].reset();
+            this.submit();
+        }
+    });
+
     $('#form_evaluasi_akhir').on('submit', function(e) {
         e.preventDefault();
 

@@ -11,6 +11,7 @@ class Evaluasi extends CI_Controller
         parent::__construct();
         $this->load->model('MemberModel');
         $this->load->model('ActivityModel');
+        $this->load->model('Event_trainerModel');
         $this->load->model('AuthModel');
         $this->load->model('RawModel');
         $this->load->helper('slug');
@@ -27,7 +28,8 @@ class Evaluasi extends CI_Controller
     {
         $data = [
             'title' => 'Evaluasi',
-            // 'activities' => $this->ActivityModel->findBy(['is_active' => 1, 'is_evaluasi' => 1, 'id_event' => $_SESSION['id_event']])->result(),
+            'activities' => $this->ActivityModel->findBy(['is_active' => 1, 'is_assesment' => 1, 'id_event' => $_SESSION['id_event']])->result(),
+            'trainers' => $this->Event_trainerModel->findBy(['event_trainer_t.is_active' => 1, 'id_event' => $_SESSION['id_event']])->result(),
             'content' => $this->url_index 
         ];
 

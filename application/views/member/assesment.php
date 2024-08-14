@@ -7,7 +7,7 @@
         <form action="<?= base_url('member/assesment/save') ?>" method="POST" id="assesment_form">
 
             <div class="mb-3">
-                <label for="date" class="fs-5 fs-md-6 fw-medium">Tanggal</label>
+                <label for="date" class="fs-5 fs-md-6 fw-medium">Tanggal <span class="text-danger">*</span></label>
                 <input type="date" name="tanggal" id="tanggal" class="form-control">
             </div>
             <?php foreach ($activities as $key => $value) : ?>
