@@ -679,7 +679,7 @@
                         visible: false
                     },
                     {
-                        data: 'nama'
+                        data: 'trainer_nama'
                     },
                     {
                         data: 'foto',
