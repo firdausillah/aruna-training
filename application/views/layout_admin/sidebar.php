@@ -36,6 +36,13 @@
                         <div data-i18n="Analytics">Pelatihan</div>
                     </a>
                 </li>
+                <!-- Evaluasi -->
+                <li class="menu-item">
+                    <a href="<?= base_url() ?>admin/evaluasi" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-user-check"></i>
+                        <div data-i18n="Analytics">Evaluasi</div>
+                    </a>
+                </li>
                 <!-- Master -->
                 <li class="menu-item">
                     <a href="javascript:void(0)" class="menu-link menu-toggle">

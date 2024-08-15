@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h5 class="text-white"><?= $title ? $title : '' ?></h5>
+        <!-- <h5 class="text-white"><?= $title ? $title : '' ?></h5> -->
         <div class="nav-align-top mb-4">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
@@ -23,7 +23,7 @@
                             <small id="tanggalError" class="form-text text-danger" style="display:none;">Pilih tanggal!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan <span class="text-danger">*</span></label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Bagaimana keadaan anda hari ini? <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="keadaan_member" id="keadaan_member3" value="3">
@@ -41,7 +41,7 @@
                             <small id="keadaan_memberError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Alasan keadaan anda hari ini</label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Jelaskan keadaan anda hari ini</label>
                             <textarea class="form-control" name="keadaan_alasan" id="keadaan_alasan" cols="20" rows="5"></textarea>
                         </div>
                         <div class="mb-3">
@@ -88,8 +88,8 @@
                             <textarea class="form-control" name="materi_saran" id="materi_saran" cols="20" rows="5"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6">Performa Pemateri</label> <br>
-                            <small>Silahkan isi pada Pemateri hari ini</small>
+                            <label class="fw-medium fs-5 fs-md-6">Performa pemateri</label> <br>
+                            <small>Silahkan isi pada pemateri hari ini</small>
                             <div class="mt-2">
                                 <?php foreach ($trainers as $key => $value) : ?>
                                     <div class="row col-11 mx-auto">
@@ -217,7 +217,7 @@
                             <small id="narasumber_fasilitatorError" class="form-text text-danger" style="display:none;">Pilih salah satu opsi!</small>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Materi pelatihan <span class="text-danger">*</span></label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">materi pelatihan <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="materi_pelatihan" id="materi_pelatihan1" value="1">

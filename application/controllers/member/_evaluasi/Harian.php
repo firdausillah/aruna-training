@@ -30,7 +30,7 @@ class Harian extends CI_Controller
         // print_r(isset($_POST["point1"])); exit();
         $cek_evaluasi_harian = $this->AuthModel->cekLogin('evaluasi_harian', ['id_member' => $_SESSION['id'], 'is_active' => 1, 'tanggal' => $_POST['tanggal']])->num_rows();
         
-        // if ($cek_evaluasi_harian == 0 || $cek_evaluasi_harian == null) {
+        if ($cek_evaluasi_harian == 0 || $cek_evaluasi_harian == null) {
             $member_nama = $this->MemberModel->findBy(['members.id' => $_SESSION['id']])->row()->nama;
             $event_nama = $this->EventModel->findBy(['id' => $_SESSION['id_event']])->row()->nama;
 
@@ -109,7 +109,7 @@ class Harian extends CI_Controller
                 redirect(base_url('member/evaluasi'));
             }
 
-        // }
+        }
         $this->session->set_flashdata(['status' => 'warning', 'message' => 'Anda sudah melakukan assesment untuk tanggal ini!']);
     }
 
