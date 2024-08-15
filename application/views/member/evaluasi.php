@@ -19,7 +19,7 @@
                     <form action="<?= base_url('member/_evaluasi/harian/save') ?>" method="POST" id="form_evaluasi_harian">
                         <div class="mb-3">
                             <label for="date" class="fs-5 fs-md-6 fw-medium">Tanggal <span class="text-danger">*</span></label>
-                            <input type="date" name="tanggal" id="tanggal" class="form-control">
+                            <input type="date" name="tanggal" id="tanggal" class="form-control" value="<?= date("Y-m-d", strtotime('now')); ?>">
                             <small id="tanggalError" class="form-text text-danger" style="display:none;">Pilih tanggal!</small>
                         </div>
                         <div class="mb-3">
@@ -94,7 +94,7 @@
                                 <?php foreach ($trainers as $key => $value) : ?>
                                     <div class="row col-11 mx-auto">
                                         <div class="col-md-4">
-                                            <label class="fw-medium fs-5 fs-md-6 mb-2"><?= $value->nama ?></label>
+                                            <label class="fw-medium fs-5 fs-md-6 mb-2"><?= $value->trainer_nama ?></label>
                                             <input type="hidden" name="id_trainer<?= $key ?>" value="<?= $value->id ?>">
                                         </div>
                                         <div class="col-md-8">

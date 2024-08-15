@@ -26,7 +26,7 @@
  	}
 
  	function findBy($id){
-		$this->db->select('*');
+		$this->db->select('trainers.id as id, trainers.id_user, trainers.foto, trainers.nomor_telepon, trainers.email, trainers.specialization, users.nama as trainer_nama, users.username, users.password, users.role, events.nama as event_nama, events.pelaksanaan_tempat, events.pelaksanaan_tanggal, events.foto, events.tanggal_buka_pendaftaran, events.tanggal_tutup_pendaftaran, events.file_info, events.token');
 		$this->db->from('events');
 		$this->db->join('event_trainer_t', 'event_trainer_t.id_event = events.id');
 		$this->db->join('trainers', 'trainers.id = event_trainer_t.id_trainer');

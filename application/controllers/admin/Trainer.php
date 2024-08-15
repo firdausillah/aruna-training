@@ -105,6 +105,7 @@ class Trainer extends CI_Controller
         if (empty($id)) {
             // Insert User dan Trainer baru
             $userId = $this->UserModel->add($userData);
+            // print_r($userId); exit();
             if ($userId) {
                 $trainerData['id_user'] = $userId;
                 if ($this->defaultModel->add($trainerData)) {

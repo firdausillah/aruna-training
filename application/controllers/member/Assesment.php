@@ -32,7 +32,7 @@ class Assesment extends CI_Controller
             'content' => $this->url_index 
         ];
 
-        print_r($data); exit();
+        // print_r($data); exit();
 
         $this->load->view('layout_member/base', $data);
     }

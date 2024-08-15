@@ -25,8 +25,12 @@
  	}
 
  	function findBy($id){
- 		$this->db->where($id);
- 		return $this->db->get('trainers');
+		$this->db->select('trainers.id_user, trainers.foto, trainers.nomor_telepon, trainers.email, trainers.specialization, users.nama as trainer_nama, users.username, users.password, users.role');
+		$this->db->from('trainers');
+		$this->db->join('users', 'users.id = trainers.id_user');
+		$this->db->where($id);
+		return $this->db->get();
+ 		// return $this->db->get('trainers');
  	}
 
  	function add($data){
