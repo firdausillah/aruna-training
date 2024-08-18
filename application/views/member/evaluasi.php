@@ -131,7 +131,7 @@
                             <textarea class="form-control" name="trainer_saran" id="trainer_saran" cols="20" rows="5"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan <span class="text-danger">*</span></label>
+                            <label class="fw-medium fs-5 fs-md-6 mb-2">Bagaimana pelayanan panitia hari ini? <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="pelayanan_panitia" id="pelayanan_panitia3" value="3">
