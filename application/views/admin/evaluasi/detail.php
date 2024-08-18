@@ -146,24 +146,39 @@
             dataType: 'json',
             success: function(json) {
                 if (json != undefined) {
-                    console.log(json);
+                    materi_data = json.data;
+                    var materi_category = []
+                    var materi_sangat_baik = []
+                    var materi_baik = []
+                    var materi_cukup = []
+                    var materi_kurang = []
+                    var materi_sangat_kurang = []
+
+                    for (let i = 0; i < materi_data.length; i++) {
+                        materi_category.push(materi_data[i].activity_nama);
+                        materi_sangat_baik.push(materi_data[i].sangat_baik);
+                        materi_baik.push(materi_data[i].baik);
+                        materi_cukup.push(materi_data[i].cukup);
+                        materi_kurang.push(materi_data[i].kurang);
+                        materi_sangat_kurang.push(materi_data[i].sangat_kurang);
+                    }
 
                     options_chart_pemahaman_materi = {
                         series: [{
                             name: 'Sangat Kurang',
-                            data: [44, 55, 41]
+                            data: materi_sangat_baik
                         }, {
                             name: 'Kurang',
-                            data: [53, 32, 33]
+                            data: materi_baik
                         }, {
                             name: 'Cukup',
-                            data: [32, 43, 23]
+                            data: materi_cukup
                         }, {
                             name: 'Baik',
-                            data: [32, 43, 23]
+                            data: materi_kurang
                         }, {
                             name: 'Sangat Baik',
-                            data: [32, 43, 23]
+                            data: materi_sangat_kurang
                         }],
                         chart: {
                             type: 'bar',
@@ -195,7 +210,7 @@
                             intersect: false
                         },
                         xaxis: {
-                            categories: [ 'ini', 'itu', 'ini itu'  ],
+                            categories: materi_category,
                         },
                     };
 
@@ -225,19 +240,40 @@
             dataType: 'json',
             success: function(json) {
                 if (json != undefined) {
+                    pemateri_data = json.data;
+                    var pemateri_category = []
+                    var pemateri_sangat_baik = []
+                    var pemateri_baik = []
+                    var pemateri_cukup = []
+                    var pemateri_kurang = []
+                    var pemateri_sangat_kurang = []
+                    console.log(pemateri_data);
+
+                    for (let i = 0; i < pemateri_data.length; i++) {
+                        pemateri_category.push(pemateri_data[i].trainer_nama);
+                        pemateri_sangat_baik.push(pemateri_data[i].sangat_baik);
+                        pemateri_baik.push(pemateri_data[i].baik);
+                        pemateri_cukup.push(pemateri_data[i].cukup);
+                        pemateri_kurang.push(pemateri_data[i].kurang);
+                        pemateri_sangat_kurang.push(pemateri_data[i].sangat_kurang);
+                    }
 
                     options_chart_performa_pemateri = {
                         series: [{
-                            name: 'tidak baik',
-                            data: [4, 5, 4, 4, 2, 3, 2]
+                            name: 'Sangat Kurang',
+                            data: pemateri_sangat_baik
                         }, {
-                            data: [3, 2, 3, 2, 3, 4, 3]
+                            name: 'Kurang',
+                            data: pemateri_baik
                         }, {
-                            data: [3, 2, 3, 2, 3, 4, 3]
+                            name: 'Cukup',
+                            data: pemateri_cukup
                         }, {
-                            data: [2, 3, 2, 5, 5, 3, 2]
+                            name: 'Baik',
+                            data: pemateri_kurang
                         }, {
-                            data: [2, 3, 2, 5, 5, 3, 2]
+                            name: 'Sangat Baik',
+                            data: pemateri_sangat_kurang
                         }],
                         chart: {
                             type: 'bar',
@@ -269,7 +305,7 @@
                             intersect: false
                         },
                         xaxis: {
-                            categories: ['Lorem ipsum dolor sit amet consectetur.', 'Lorem, ipsum dolor.', 'Lorem, ipsum dolor.', 'Lorem ipsum dolor sit amet consectetur.', 'Lorem ipsum dolor sit amet.', 'Lorem ipsum dolor sit.', 'Lorem ipsum dolor sit amet.'],
+                            categories: pemateri_category,
                         },
                     };
 
