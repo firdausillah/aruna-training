@@ -80,7 +80,7 @@
             dataType: 'json',
             success: function(json) {
                 if (json != undefined) {
-                    console.log(json);
+                    // console.log(json);
 
                 }
             }
@@ -146,23 +146,28 @@
             dataType: 'json',
             success: function(json) {
                 if (json != undefined) {
+                    console.log(json);
 
                     options_chart_pemahaman_materi = {
                         series: [{
-                            name: 'tidak baik',
-                            data: [44, 55, 41, 64, 22, 43, 21]
+                            name: 'Sangat Kurang',
+                            data: [44, 55, 41]
                         }, {
-                            data: [53, 32, 33, 52, 13, 44, 32]
+                            name: 'Kurang',
+                            data: [53, 32, 33]
                         }, {
-                            data: [32, 43, 23, 45, 45, 53, 27]
+                            name: 'Cukup',
+                            data: [32, 43, 23]
                         }, {
-                            data: [32, 43, 23, 45, 45, 53, 27]
+                            name: 'Baik',
+                            data: [32, 43, 23]
                         }, {
-                            data: [32, 43, 23, 45, 45, 53, 27]
+                            name: 'Sangat Baik',
+                            data: [32, 43, 23]
                         }],
                         chart: {
                             type: 'bar',
-                            height: 630
+                            // height: 630
                         },
                         plotOptions: {
                             bar: {
@@ -190,7 +195,7 @@
                             intersect: false
                         },
                         xaxis: {
-                            categories: ['Lorem ipsum dolor sit amet consectetur.', 'Lorem, ipsum dolor.', 'Lorem, ipsum dolor.', 'Lorem ipsum dolor sit amet consectetur.', 'Lorem ipsum dolor sit amet.', 'Lorem ipsum dolor sit.', 'Lorem ipsum dolor sit amet.'],
+                            categories: [ 'ini', 'itu', 'ini itu'  ],
                         },
                     };
 

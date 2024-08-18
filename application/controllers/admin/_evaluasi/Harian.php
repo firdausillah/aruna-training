@@ -100,6 +100,12 @@ class Harian extends CI_Controller
                 GROUP BY
                     a.id_activity
             ";
+        $data_query = $this->RawModel->sqlRaw($sql)->result_array();
+        $data = [
+            'activity_nama' =>
+        ];
+        print_r($data);
+        exit();
 
         echo json_encode(['data' => $this->RawModel->sqlRaw($sql)->result_array()]);
     }
