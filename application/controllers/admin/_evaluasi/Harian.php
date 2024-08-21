@@ -22,8 +22,10 @@ class Harian extends CI_Controller
 
     public function getEvaluasiHarian()
     {
+        // print_r($_GET); exit();
         $tanggal = $_GET['tanggal'];
         $id_event = $_GET['id_event'];
+        $field = $_GET['field'];
 
         $sql = "
                 SELECT
@@ -31,11 +33,10 @@ class Harian extends CI_Controller
                 FROM
                     evaluasi_harian
                 WHERE
-                    id_event = $id_event AND tanggal = '$tanggal';
+                    id_event = $id_event AND tanggal = '$tanggal' AND $field != '';
             ";
 
         echo json_encode(['data' => $this->RawModel->sqlRaw($sql)->result_array()]);
-        // echo json_encode(['data' => $this->Evaluasi_harianModel->findBy(['id' => $id_event])->result_array()]);
     }
 
     public function getKeadaan()

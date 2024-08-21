@@ -17,25 +17,92 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="evaluasi_harian" role="tabpanel">
                     <div class="input-group mb-4">
-                        <input type="date" class="form-control" id="filter_evaluasi_harian" value="<?= date("Y-m-d", strtotime('now')); ?>" aria-describedby="button-addon2">
+                        <input type="date" class="form-control" id="filter_evaluasi_harian" value="2024-08-18" aria-describedby="button-addon2">
+                        <!-- <input type="date" class="form-control" id="filter_evaluasi_harian" value="<?= date("Y-m-d", strtotime('now')); ?>" aria-describedby="button-addon2"> -->
                         <button class="btn btn-primary" type="button" id="button-addon2" onclick="filter_tanggal()">Filter</button>
                     </div>
 
-                    <label for="chart_keadaan">Keadaan Peserta</label>
+                    <label class="display-6 mt-5" for="chart_keadaan">Keadaan Peserta</label>
                     <div id="chart_keadaan"></div>
 
-                    <label for="penjelasan_keadaan_peserta">Penjelasan Keadaan Peserta</label>
-                    <div id="penjelasan_keadaan_peserta" class="row">
+                    <label class="display-6 mt-5" for="penjelasan_keadaan_peserta">Penjelasan Keadaan Peserta</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_penjelasan_keadaan_peserta" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Keadaan Peserta</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
                     </div>
 
-                    <label for="chart_pemahaman_materi">Pemahaman Materi</label>
+                    <label class="display-6 mt-5" for="chart_pemahaman_materi">Pemahaman Materi</label>
                     <div id="chart_pemahaman_materi"></div>
 
-                    <label for="chart_performa_pemateri">Performa Pemateri</label>
+                    <label class="display-6 mt-5" for="materi_saran">Saran Untuk Materi</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_materi_saran" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Saran Untuk Materi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <label class="display-6 mt-5" for="chart_performa_pemateri">Performa Pemateri</label>
                     <div id="chart_performa_pemateri"></div>
 
-                    <label for="chart_pelayanan_panitia">Pelayanan Panitia</label>
+                    <label class="display-6 mt-5" for="trainer_saran">Saran Untuk Pemateri</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_trainer_saran" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Saran Untuk Pemateri</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <label class="display-6 mt-5" for="chart_pelayanan_panitia">Pelayanan Panitia</label>
                     <div id="chart_pelayanan_panitia"></div>
+                    
+                    <label class="display-6 mt-5" for="pelayanan_alasan">Komentar Pelayanan Panitia</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_pelayanan_alasan" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Komentar Pelayanan Panitia</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <label class="display-6 mt-5" for="komentar_usulan">Komentar dan Usulan</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_komentar_usulan" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Komentar dan Usulan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
                 <div class="tab-pane fade" id="evaluasi_akhir" role="tabpanel">
@@ -56,6 +123,101 @@
     var tanggal;
 
     $(document).ready(function() {
+        // BEGIN table_penjelasan_keadaan_peserta
+        table_penjelasan_keadaan_peserta = $('#table_penjelasan_keadaan_peserta').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'keadaan_alasan'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_penjelasan_keadaan_peserta
+
+        // BEGIN table_materi_saran
+        table_materi_saran = $('#table_materi_saran').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'materi_saran'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_materi_saran
+
+        // BEGIN table_trainer_saran
+        table_trainer_saran = $('#table_trainer_saran').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'trainer_saran'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_trainer_saran
+
+        // BEGIN table_pelayanan_alasan
+        table_pelayanan_alasan = $('#table_pelayanan_alasan').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'pelayanan_alasan'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_pelayanan_alasan
+
+        // BEGIN table_komentar_usulan
+        table_komentar_usulan = $('#table_komentar_usulan').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'komentar_usulan'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_komentar_usulan
+
         filter_tanggal();
     });
 
@@ -70,21 +232,11 @@
     }
 
     function get_evaluasi_harian(tanggal) {
-        $.ajax({
-            url: '<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian') ?>',
-            type: 'GET',
-            data: {
-                id_event: id_event,
-                tanggal: tanggal
-            },
-            dataType: 'json',
-            success: function(json) {
-                if (json != undefined) {
-                    // console.log(json);
-
-                }
-            }
-        });
+        table_penjelasan_keadaan_peserta.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=keadaan_alasan').load();
+        table_materi_saran.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=materi_saran').load();
+        table_trainer_saran.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=trainer_saran').load();
+        table_pelayanan_alasan.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=pelayanan_alasan').load();
+        table_komentar_usulan.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=komentar_usulan').load();
     }
 
     function get_chart_keadaan(tanggal) {
@@ -97,7 +249,7 @@
             },
             dataType: 'json',
             success: function(json) {
-                if (json != undefined) {
+                if (json.data.length != 0) {
                     options_chart_keadaan = {
                         series: [{
                             data: [json.data[0].tidak_baik, json.data[0].biasa, json.data[0].baik]
@@ -145,7 +297,7 @@
             },
             dataType: 'json',
             success: function(json) {
-                if (json != undefined) {
+                if (json.data.length != 0) {
                     materi_data = json.data;
                     var materi_category = []
                     var materi_sangat_baik = []
@@ -239,7 +391,7 @@
             },
             dataType: 'json',
             success: function(json) {
-                if (json != undefined) {
+                if (json.data.length != 0) {
                     pemateri_data = json.data;
                     var pemateri_category = []
                     var pemateri_sangat_baik = []
@@ -247,7 +399,6 @@
                     var pemateri_cukup = []
                     var pemateri_kurang = []
                     var pemateri_sangat_kurang = []
-                    console.log(pemateri_data);
 
                     for (let i = 0; i < pemateri_data.length; i++) {
                         pemateri_category.push(pemateri_data[i].trainer_nama);
@@ -334,7 +485,7 @@
             },
             dataType: 'json',
             success: function(json) {
-                if (json != undefined) {
+                if (json.data.length != 0) {
                     options_chart_pelayanan_panitia = {
                         series: [{
                             data: [json.data[0].tidak_baik, json.data[0].biasa, json.data[0].baik]
