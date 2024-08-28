@@ -651,7 +651,7 @@
                         data: 'id',
                         render: function(data, type, row) {
                             return '<span>' +
-                                '<a href="<?= base_url('admin/event/cetak/id_card_event_member/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
+                                '<a href="<?= base_url('admin/id_card/cetak_member/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
                                 '<a href="#" onClick="open_form_edit_member(' + data + ')" class="text-info"><i class="bx bx-edit-alt me-1"></i></a>' +
                                 '<a class="text-danger" href="#" onclick="return action_delete_member(' + data + ')"><i class="bx bx-trash me-1"></i></a>' +
                                 '</span>'
@@ -698,7 +698,7 @@
                         data: 'id',
                         render: function(data, type, row) {
                             return '<span>' +
-                                '<a href="<?= base_url('admin/event/cetak/id_card_event_pendamping/') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
+                                '<a href="<?= base_url('admin/id_card/cetak_trainer') ?>' + data + '" target="_blank" class="text-success"><i class="bx bxs-download me-2 "></i></a>' +
                                 '<a class="text-danger" href="#" onclick="return action_delete_trainer(' + row.id_trainer + ', ' + row.id_event + ')"><i class="bx bx-trash me-1"></i></a>' +
                                 '</span>'
 

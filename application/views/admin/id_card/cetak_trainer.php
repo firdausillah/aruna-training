@@ -3,7 +3,7 @@
         <tr>
             <td style="width: 50%; height:300px; position:relative; vertical-align: bottom; text-align:center;">
                 <div style="position: absolute; margin-top:100%;">
-                    <img src="<?= base_url('uploads/img/member/' . $_SESSION['foto']) ?>" width="110px" style="border-radius: 10px; position:absolute;" alt="">
+                    <img src="<?= base_url('uploads/img/trainer/' . $trainer->foto) ?>" width="110px" style="border-radius: 10px; position:absolute;" alt="">
                 </div>
 
             </td>
@@ -11,11 +11,10 @@
         <tr>
             <td style="text-align: center; height: 120px;">
                 <div style="width: 100%; height: 100%; position: absolute; z-index: 100; bottom: 0;">
-                    <h2 style="margin-top: 3px; margin-bottom:0;">PESERTA</h2>
-                    <p style="margin-top: 3px; margin-bottom:0;"><?= $_SESSION['event_nama'] ?></p>
-                    <h3 style="margin-top: 3px; margin-bottom:0;"><?= $_SESSION['nama'] ?></h3>
-                    <p style="margin-top: 3px; margin-bottom:0;"><?= $_SESSION['instansi'] ?></p>
-                    <small><?= $member->pelaksanaan_tempat . ', ' . $member->pelaksanaan_tanggal ?></small>
+                    <h2 style="margin-top: 3px; margin-bottom:0;">TRAINER</h2>
+                    <p style="margin-top: 3px; margin-bottom:0;"><?= $trainer->event_nama ?></p>
+                    <h3 style="margin-top: 3px; margin-bottom:0;"><?= $trainer->trainer_nama ?></h3>
+                    <small><?= $trainer->pelaksanaan_tempat . ', ' . $trainer->pelaksanaan_tanggal ?></small>
                 </div>
 
             </td>
