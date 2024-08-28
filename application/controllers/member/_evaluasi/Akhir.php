@@ -34,6 +34,7 @@ class Akhir extends CI_Controller
             'is_active' => 1,
             'member_nama'   => $member_nama,
             'event_nama'    => $event_nama,
+            'tanggal' => $this->input->post('tanggal'),
             'kesesuaian_pelatihan_dengan_kebutuhan' => $this->input->post('kesesuaian_pelatihan_dengan_kebutuhan'),
             'narasumber_fasilitator'    => $this->input->post('narasumber_fasilitator'),
             'materi_pelatihan'  => $this->input->post('materi_pelatihan'),

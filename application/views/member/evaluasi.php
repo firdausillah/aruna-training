@@ -165,6 +165,11 @@
                 <div class="tab-pane fade" id="evaluasi_akhir" role="tabpanel">
                     <form action="<?= base_url('member/_evaluasi/akhir/save') ?>" method="POST" id="form_evaluasi_akhir">
                         <div class="mb-3">
+                            <label for="date" class="fs-5 fs-md-6 fw-medium">Tanggal <span class="text-danger">*</span></label>
+                            <input type="date" name="tanggal" id="tanggal" class="form-control" value="<?= date("Y-m-d", strtotime('now')); ?>">
+                            <small id="tanggalError" class="form-text text-danger" style="display:none;">Pilih tanggal!</small>
+                        </div>
+                        <div class="mb-3">
                             <label class="fw-medium fs-5 fs-md-6 mb-2">Kesesuaian pelatihan dengan kebutuhan <span class="text-danger">*</span></label>
                             <div class="col-lg-8 d-flex flex-column flex-md-row justify-content-evenly mx-auto">
                                 <div class="form-check">
@@ -484,6 +489,13 @@
             $('#kesesuaian_pelatihan_dengan_kebutuhanError').hide();
         }
 
+        if (!$('#evaluasi_akhir #tanggal').val()) {
+            $('#evaluasi_akhir #tanggalError').show();
+            isValid = false;
+        } else {
+            $('#evaluasi_akhir #tanggalError').hide();
+        }
+
         if (!$('input[name="narasumber_fasilitator"]:checked').val()) {
             $('#narasumber_fasilitatorError').show();
             isValid = false;
@@ -542,8 +554,8 @@
 
         // Jika tidak ada error, form akan disubmit
         if (isValid) {
-            $('#form_evaluasi_akhir')[0].reset();
             this.submit();
+            $('#form_evaluasi_akhir')[0].reset();
         }
     });
 </script>

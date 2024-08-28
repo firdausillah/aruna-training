@@ -17,12 +17,12 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="evaluasi_harian" role="tabpanel">
                     <div class="input-group mb-4">
-                        <input type="date" class="form-control" id="filter_evaluasi_harian" value="2024-08-18" aria-describedby="button-addon2">
-                        <!-- <input type="date" class="form-control" id="filter_evaluasi_harian" value="<?= date("Y-m-d", strtotime('now')); ?>" aria-describedby="button-addon2"> -->
+                        <!-- <input type="date" class="form-control" id="filter_evaluasi_harian" value="2024-08-18" aria-describedby="button-addon2"> -->
+                        <input type="date" class="form-control" id="filter_evaluasi_harian" value="<?= date("Y-m-d", strtotime('now')); ?>" aria-describedby="button-addon2">
                         <button class="btn btn-primary" type="button" id="button-addon2" onclick="filter_tanggal()">Filter</button>
                     </div>
 
-                    <label class="display-6 mt-5" for="chart_keadaan">Keadaan Peserta</label>
+                    <label class="display-6" for="chart_keadaan">Keadaan Peserta</label>
                     <div id="chart_keadaan"></div>
 
                     <label class="display-6 mt-5" for="penjelasan_keadaan_peserta">Penjelasan Keadaan Peserta</label>
