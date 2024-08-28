@@ -19,7 +19,7 @@
                     <div class="input-group mb-4">
                         <!-- <input type="date" class="form-control" id="filter_evaluasi_harian" value="2024-08-18" aria-describedby="button-addon2"> -->
                         <input type="date" class="form-control" id="filter_evaluasi_harian" value="<?= date("Y-m-d", strtotime('now')); ?>" aria-describedby="button-addon2">
-                        <button class="btn btn-primary" type="button" id="button-addon2" onclick="filter_tanggal()">Filter</button>
+                        <button class="btn btn-primary" type="button" id="button-addon2" onclick="filter_tanggal_harian()">Filter</button>
                     </div>
 
                     <label class="display-6" for="chart_keadaan">Keadaan Peserta</label>
@@ -72,10 +72,10 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <label class="display-6 mt-5" for="chart_pelayanan_panitia">Pelayanan Panitia</label>
                     <div id="chart_pelayanan_panitia"></div>
-                    
+
                     <label class="display-6 mt-5" for="pelayanan_alasan">Komentar Pelayanan Panitia</label>
                     <div class="table-responsive text-nowrap mt-2">
                         <table id="table_pelayanan_alasan" class="table table-hover">
@@ -89,7 +89,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <label class="display-6 mt-5" for="komentar_usulan">Komentar dan Usulan</label>
                     <div class="table-responsive text-nowrap mt-2">
                         <table id="table_komentar_usulan" class="table table-hover">
@@ -106,7 +106,42 @@
 
                 </div>
                 <div class="tab-pane fade" id="evaluasi_akhir" role="tabpanel">
+                    <div class="input-group mb-4">
+                        <!-- <input type="date" class="form-control" id="filter_evaluasi_harian" value="2024-08-18" aria-describedby="button-addon2"> -->
+                        <input type="date" class="form-control" id="filter_evaluasi_akhir" value="<?= date("Y-m-d", strtotime('now')); ?>" aria-describedby="button-addon2">
+                        <button class="btn btn-primary" type="button" id="button-addon2" onclick="filter_tanggal_akhir()">Filter</button>
+                    </div>
 
+                    <label class="display-6 mt-5" for="chart_evaluasi_akhir">Evaluasi Akhir</label>
+                    <div id="chart_evaluasi_akhir"></div>
+
+                    <label class="display-6 mt-5" for="komentar">Komentar</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_komentar" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Komentar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <label class="display-6 mt-5" for="usul_saran">Saran untuk kegiatan kedepan</label>
+                    <div class="table-responsive text-nowrap mt-2">
+                        <table id="table_usul_saran" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Saran untuk kegiatan kedepan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,8 +153,8 @@
 <script src="<?= base_url() ?>assets/vendor/libs/apex-charts/apexcharts.js"></script>
 <script>
     var id_event = <?= $_GET['id_event'] ?>;
-    var chart_keadaan, chart_pemahaman_materi, chart_performa_pemateri, chart_pelayanan_panitia;
-    var options_chart_keadaan, options_chart_pemahaman_materi, options_chart_performa_pemateri, options_chart_pelayanan_panitia;
+    var chart_keadaan, chart_pemahaman_materi, chart_performa_pemateri, chart_pelayanan_panitia, chart_evaluasi_akhir;
+    var options_chart_keadaan, options_chart_pemahaman_materi, options_chart_performa_pemateri, options_chart_pelayanan_panitia, option_chart_evaluasi_akhir;
     var tanggal;
 
     $(document).ready(function() {
@@ -218,10 +253,49 @@
         });
         // END table_komentar_usulan
 
-        filter_tanggal();
+        // BEGIN table_komentar
+        table_komentar = $('#table_komentar').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'komentar'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_komentar
+
+        // BEGIN table_usul_saran
+        table_usul_saran = $('#table_usul_saran').DataTable({
+            responsive: true,
+            columns: [{
+                    data: 'id',
+                    visible: false
+                },
+                {
+                    data: 'usul_saran'
+                }
+            ],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }]
+        });
+        // END table_usul_saran
+
+        filter_tanggal_harian();
+        filter_tanggal_akhir();
     });
 
-    function filter_tanggal() {
+    function filter_tanggal_harian() {
         tanggal = $('#filter_evaluasi_harian').val();
 
         get_evaluasi_harian(tanggal);
@@ -231,12 +305,24 @@
         get_chart_pelayanan_panitia(tanggal);
     }
 
+    function filter_tanggal_akhir() {
+        tanggal = $('#filter_evaluasi_akhir').val();
+
+        get_evaluasi_akhir(tanggal);
+        get_chart_evaluasi_akhir(tanggal);
+    }
+
     function get_evaluasi_harian(tanggal) {
         table_penjelasan_keadaan_peserta.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=keadaan_alasan').load();
         table_materi_saran.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=materi_saran').load();
         table_trainer_saran.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=trainer_saran').load();
         table_pelayanan_alasan.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=pelayanan_alasan').load();
         table_komentar_usulan.ajax.url('<?= base_url('admin/_evaluasi/harian/getEvaluasiHarian?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=komentar_usulan').load();
+    }
+
+    function get_evaluasi_akhir(tanggal) {
+        table_komentar.ajax.url('<?= base_url('admin/_evaluasi/akhir/getEvaluasi?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=komentar').load();
+        table_usul_saran.ajax.url('<?= base_url('admin/_evaluasi/akhir/getEvaluasi?tanggal=') ?>' + tanggal + '&id_event=' + id_event + '&field=usul_saran').load();
     }
 
     function get_chart_keadaan(tanggal) {
@@ -517,6 +603,100 @@
                         chart_pelayanan_panitia = new ApexCharts(document.querySelector("#chart_pelayanan_panitia"), options_chart_pelayanan_panitia);
                         chart_pelayanan_panitia.render();
                     }
+
+                }
+            }
+        });
+    }
+
+    function get_chart_evaluasi_akhir(tanggal) {
+        $.ajax({
+            url: '<?= base_url('admin/_evaluasi/akhir/getEvaluasiAkhir') ?>',
+            type: 'GET',
+            data: {
+                id_event: id_event,
+                tanggal: tanggal
+            },
+            dataType: 'json',
+            success: function(json) {
+                if (json.data.length != 0) {
+                    evaluasi_akhir_data = json.data;
+                    var evaluasi_akhir_category = []
+                    var evaluasi_akhir_sangat_baik = []
+                    var evaluasi_akhir_baik = []
+                    var evaluasi_akhir_cukup = []
+                    var evaluasi_akhir_kurang = []
+                    var evaluasi_akhir_sangat_kurang = []
+
+                    for (let i = 0; i < evaluasi_akhir_data.length; i++) {
+                        evaluasi_akhir_category.push(evaluasi_akhir_data[i].category);
+                        evaluasi_akhir_sangat_baik.push(evaluasi_akhir_data[i].sangat_baik);
+                        evaluasi_akhir_baik.push(evaluasi_akhir_data[i].baik);
+                        evaluasi_akhir_cukup.push(evaluasi_akhir_data[i].cukup);
+                        evaluasi_akhir_kurang.push(evaluasi_akhir_data[i].kurang);
+                        evaluasi_akhir_sangat_kurang.push(evaluasi_akhir_data[i].sangat_kurang);
+                    }
+
+                    option_chart_evaluasi_akhir = {
+                        series: [{
+                            name: 'Sangat Kurang',
+                            data: evaluasi_akhir_sangat_baik
+                        }, {
+                            name: 'Kurang',
+                            data: evaluasi_akhir_baik
+                        }, {
+                            name: 'Cukup',
+                            data: evaluasi_akhir_cukup
+                        }, {
+                            name: 'Baik',
+                            data: evaluasi_akhir_kurang
+                        }, {
+                            name: 'Sangat Baik',
+                            data: evaluasi_akhir_sangat_kurang
+                        }],
+                        chart: {
+                            type: 'bar',
+                            height: 1030
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                dataLabels: {
+                                    position: 'top',
+                                },
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            offsetX: -6,
+                            style: {
+                                fontSize: '8px',
+                                colors: ['#fff']
+                            }
+                        },
+                        stroke: {
+                            show: true,
+                            width: 1,
+                            colors: ['#fff']
+                        },
+                        tooltip: {
+                            shared: true,
+                            intersect: false
+                        },
+                        xaxis: {
+                            categories: evaluasi_akhir_category,
+                        },
+                    };
+
+                    if (chart_evaluasi_akhir) {
+                        // Update chart with new data
+                        chart_evaluasi_akhir.updateOptions(option_chart_evaluasi_akhir);
+                    } else {
+                        // Create new chart if it doesn't exist
+                        chart_evaluasi_akhir = new ApexCharts(document.querySelector("#chart_evaluasi_akhir"), option_chart_evaluasi_akhir);
+                        chart_evaluasi_akhir.render();
+                    }
+
 
                 }
             }
