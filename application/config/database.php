@@ -75,10 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'aruna-training',
+	'hostname' => 'pmibanyuwangi.or.id',
+	// 'hostname' => '154.41.240.153',
+	'username' => 'u767547842_admin_simpel',
+	'password' => 'Pm1B4nyuw4ng1',
+	'database' => 'u767547842_simpel',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
