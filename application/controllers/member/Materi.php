@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Materi extends CI_Controller
+class Materi extends MY_Controller
 {
     public $defaultVariable = 'materi';
     public $url_index = 'member/materi';

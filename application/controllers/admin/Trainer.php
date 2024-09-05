@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Trainer extends CI_Controller
+class Trainer extends MY_Controller
 {
     public $defaultVariable = 'trainer';
     public $url_index = 'admin/trainer';

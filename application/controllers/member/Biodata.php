@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Biodata extends CI_Controller
+class Biodata extends MY_Controller
 {
     public $defaultVariable = 'member';
     public $url_index = 'member/biodata';

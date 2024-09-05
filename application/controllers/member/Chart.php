@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Chart extends CI_Controller
+class Chart extends MY_Controller
 {
     public $defaultVariable = 'task';
     public $url_index = 'member/task';

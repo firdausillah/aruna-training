@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Event_member_t extends CI_Controller
+class Event_member_t extends MY_Controller
 {
     function __construct()
     {

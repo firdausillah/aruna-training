@@ -55,6 +55,11 @@
                                 <div data-i18n="Materi">Materi</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="<?= base_url() ?>admin/profile" class="menu-link">
+                                <div data-i18n="Profile">Profile</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- E-User -->

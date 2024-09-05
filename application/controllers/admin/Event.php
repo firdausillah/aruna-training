@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Event extends CI_Controller
+class Event extends MY_Controller
 {
     public $defaultVariable = 'event';
     public $url_index = 'admin/event';

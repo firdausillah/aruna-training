@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Akhir extends CI_Controller
+class Akhir extends MY_Controller
 {
     function __construct()
     {

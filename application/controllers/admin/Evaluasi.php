@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Evaluasi extends CI_Controller
+class Evaluasi extends MY_Controller
 {
     public $url_index = 'admin/evaluasi';
 

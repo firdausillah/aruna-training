@@ -78,10 +78,18 @@
               <!-- Logo -->
               <div class="app-brand justify-content-center">
                 <a href="index.html" class="d-flex flex-column gap-2">
+                <?php
+                if (isset($profile->foto)) : ?>
+                  <span class=" d-flex justify-content-center">
+                    <img src="<?= base_url('uploads/img/profile/' . $profile->foto); ?>" width="150">
+                  </span>
+                  <!-- <span class="app-brand-text fs-4 text-body fw-bolder">LOGIN</span> -->
+                <?php else : ?>
                   <span class=" d-flex justify-content-center">
                     <img src="<?= base_url('assets/img/aruna-logo-gram.png') ?>" width="50">
                   </span>
                   <span class="app-brand-text fs-4 text-body fw-bolder">ARUNA TRAINING</span>
+                <?php endif ?>
                 </a>
               </div>
               <p>Selamat Datang! <br>Sistem informasi manajemen pelatihan </p>

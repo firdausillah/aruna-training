@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Presensi extends CI_Controller
+class Presensi extends MY_Controller
 {
     public $defaultVariable = 'presensi';
     public $url_index = 'member/presensi';

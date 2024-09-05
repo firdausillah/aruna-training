@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Assesment extends CI_Controller
+class Assesment extends MY_Controller
 {
     public $defaultVariable = 'assesment';
     public $url_index = 'member/assesment';

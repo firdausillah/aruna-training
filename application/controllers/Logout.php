@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Logout extends CI_Controller
+class Logout extends MY_Controller
 {
 
 	function __construct()

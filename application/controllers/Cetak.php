@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Cetak extends CI_Controller {
+class Cetak extends MY_Controller {
 
 	function __construct(){
 		parent::__construct();
