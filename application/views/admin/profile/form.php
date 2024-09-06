@@ -18,7 +18,7 @@
                     <input type="hidden" class="form-control" value="<?= @$profile->foto ?>" name="file_name">
                 </div>
                 <div class="col-md-6">
-                    <img src="<?= base_url('uploads/img/profile/' . @$profile->foto) ?>" height="200px" alt="">
+                    <img src="<?= base_url('uploads/img/profile/' . @$profile->foto) ?>" height="200px" alt="" class="img-fluid">
                 </div>
             </div>
         </div>
