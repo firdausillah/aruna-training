@@ -5,7 +5,7 @@
 
         <nav class="layout-navbar container-xxl navbar navbar-expand-xl align-items-center" id="layout-navbar" style="background-color: transparent !important; backdrop-filter: unset !important;">
             <div class="navbar-nav-right d-flex align-items-center justify-content-between" id="navbar-collapse">
-                <?php if(in_array('dashboard', $uri)): ?>
+                <?php if(!in_array('dashboard', $uri)): ?>
                 <a href="<?= base_url('member/dashboard') ?>">
                     <i class='bx bx-chevron-left text-white' style="font-size: xx-large;"></i>
                 </a>
