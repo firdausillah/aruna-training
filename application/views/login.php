@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-  <title>Login | <?= $profile->nama ? $profile->nama : 'Aruna Training' ?></title>
+  <title>Login | <?= isset($profile->nama) ? $profile->nama : 'Aruna Training' ?></title>
 
     <meta name="description" content="" />
 
