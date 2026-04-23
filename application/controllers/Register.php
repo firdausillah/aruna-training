@@ -148,7 +148,7 @@ class Register extends MY_Controller
 		if($token){
 			$sql = 'SELECT
 					*
-				FROM EVENTS
+				FROM events
 					a
 				WHERE
 					is_active = 1 AND token = "' . $token . '" AND a.tanggal_buka_pendaftaran < "' . $tanggal_sekarang . '" AND a.tanggal_tutup_pendaftaran > "' . $tanggal_sekarang . '"';
