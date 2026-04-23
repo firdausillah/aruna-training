@@ -2,7 +2,7 @@
             <div class="app-brand demo d-flex justify-content-center">
                 <a href="index.html" class="app-brand-link">
                     <span class="app-brand-logo demo ">
-                        <img src="<?= base_url('uploads/img/profile/' . $profile->foto); ?>" width="100" alt="">
+                        <img src="<?= isset($profile->foto) ? base_url('uploads/img/profile/' . $profile->foto) : base_url('assets/img/placeholder.jpg'); ?>" width="100" alt="">
                     </span>
                     <!-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Aruna Training</span> -->
                 </a>
