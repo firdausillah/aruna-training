@@ -17,12 +17,14 @@
 	}
  	
  	function get(){
- 		return $this->db->get('events')->where('is_active', '1');
+		$this->db->where('is_active', '1');
+ 		return $this->db->get('events');
  	}
 
  	function findBy($id){
  		$this->db->where($id);
- 		return $this->db->get('events')->where('is_active', '1');
+ 		$this->db->where('is_active', '1');
+ 		return $this->db->get('events');
  	}
 
  	function add($data){
@@ -32,6 +34,7 @@
  	
  	function update($id,$data){
  		$this->db->where($id);
+ 		
  		return $this->db->update('events',$data);
  	}
 
