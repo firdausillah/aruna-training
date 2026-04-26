@@ -47,13 +47,26 @@ class Register extends MY_Controller
 
 	public function save()
 	{
-		// $cek = $this->AuthModel->cekLogin('users', $where)->row();
 		$token = $this->input->post('token');
 		$id_event = $this->EventModel->findBy(['token' => $token])->row()->id;
-		// print_r($token);
-		// print_r($test); exit();
-
 		$id = $this->input->post('id');
+
+		if (empty($id)) {
+			// Cek duplikasi username
+			$existingUser = $this->UserModel->findBy(['username' => $this->input->post('username')])->num_rows();
+			if ($existingUser > 0) {
+				$this->session->set_flashdata(['status' => 'error', 'message' => 'Username sudah digunakan']);
+				redirect(base_url($this->url_index.'register?token='.$token));
+			}
+
+			// Cek duplikasi email
+			$existingEmail = $this->MemberModel->findBy(['email' => $this->input->post('email')])->num_rows();
+			if ($existingEmail > 0) {
+				$this->session->set_flashdata(['status' => 'error', 'message' => 'Email sudah digunakan']);
+				redirect(base_url($this->url_index.'register?token='.$token));
+			}
+		}
+
 		if (!$this->input->post('gambar')) {
 			$slug = slugify($this->input->post('nama'));
 		} else {

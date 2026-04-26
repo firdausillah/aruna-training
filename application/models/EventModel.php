@@ -17,6 +17,7 @@
 	}
  	
  	function get(){
+		// return $this->db->get('events');
 		$this->db->where('is_active', '1');
  		return $this->db->get('events');
  	}
@@ -31,15 +32,14 @@
 		$additional_data = $this->add_additional();
 		return $this->db->insert('events', $additional_data + $data);
  	}
- 	
+ 	 
  	function update($id,$data){
  		$this->db->where($id);
- 		
  		return $this->db->update('events',$data);
  	}
 
  	function delete($id){
  		$this->db->where($id);
  		return $this->db->delete('events');
- 	}
- }
+	}
+ };

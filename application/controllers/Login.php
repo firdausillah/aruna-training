@@ -106,7 +106,11 @@ class Login extends MY_Controller
 			// $this->session->set_flashdata('error', 'Username atau Password salah!');
 			$this->session->set_flashdata( ['status'=>'error', 'message'=>'Username atau Password salah!']);
 
-			redirect('login');
+			if ($role == 'superadmin') {
+				redirect('login/admin');
+			} else {
+				redirect('login');
+			}
 		}
 	}
 

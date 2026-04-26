@@ -23,7 +23,7 @@
         <tr>
             <td style="text-align: right; height: 40px; vertical-align: bottom;">
                 <small style="position: absolute; z-index: 100; bottom: 0; right: 3px; padding: 3px 8px; text-align: right;">
-                    <small style="margin-bottom: 0;">Aruna Training</small> <br>
+                    <small style="margin-bottom: 0;">Simpel PMI</small> <br>
                     <small>Sistem Informasi Pelatihan</small>
 
                 </small>
@@ -47,7 +47,7 @@
             <small><?= $member->pelaksanaan_tempat . ', ' . $member->pelaksanaan_tanggal ?></small>
         </div>
         <small style="position: absolute; z-index: 100; bottom: 0; right: 3px; padding: 3px 8px; text-align: right;">
-            <small style="margin-bottom: 0;">Aruna Training</small> <br>
+            <small style="margin-bottom: 0;">Simpel PMI</small> <br>
             <small>Sistem Informasi Pelatihan</small>
 
         </small>
@@ -70,7 +70,7 @@
             <small><?= $member->pelaksanaan_tempat . ', ' . $member->pelaksanaan_tanggal ?></small>
         </div>
         <small style="position: absolute; z-index: 100; bottom: 0; right: 3px; padding: 3px 8px; text-align: right;">
-            <small style="margin-bottom: 0;">Aruna Training</small> <br>
+            <small style="margin-bottom: 0;">Simpel PMI</small> <br>
             <small>Sistem Informasi Pelatihan</small>
 
         </small>

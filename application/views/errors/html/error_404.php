@@ -4,12 +4,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Page Not Found | Aruna Training</title>
+	<title>Page Not Found | Simpel PMI Kab. Banyuwangi</title>
 
 	<meta name="description" content="" />
 
 	<!-- Favicon -->
-	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>assets/img/aruna-logo-gram.png" />
+	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>assets/img/logo_pmi2.jpg" />
 
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com" />

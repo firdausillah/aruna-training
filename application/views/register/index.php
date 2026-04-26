@@ -5,12 +5,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Registrasi | Aruna Training</title>
+  <title>Registrasi | Simpel PMI Kab. Banyuwangi</title>
 
   <meta name="description" content="" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="<?= base_url() ?>assets/img/favicon/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="<?= base_url() ?>assets/img/logo_pmi2.jpg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,9 +55,9 @@
             <div class="app-brand justify-content-center">
               <a href="<?= base_url('') ?>" class="d-flex flex-column gap-2">
                 <span class=" d-flex justify-content-center">
-                  <img src="<?= base_url('assets/img/aruna-logo-gram.png') ?>" width="50">
+                  <img src="<?= base_url('assets/img/logo_pmi2.jpg') ?>" width="50">
                 </span>
-                <span class="app-brand-text fs-4 text-body fw-bolder">ARUNA TRAINING</span>
+                <span class="app-brand-text fs-4 text-body fw-bolder">Simpel PMI Kab. Banyuwangi</span>
               </a>
             </div>
             <!-- /Logo -->

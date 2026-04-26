@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title><?= $title ? $title : '' ?> | <?= isset($profile->nama) ? $profile->nama : 'Aruna Training' ?></title>
+  <title><?= $title ? $title : '' ?> | <?= isset($profile->nama) ? $profile->nama : 'Simpel PMI' ?></title>
 
   <meta name="description" content="" />
 

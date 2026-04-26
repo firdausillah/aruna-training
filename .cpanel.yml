@@ -1,16 +1,11 @@
 deployment:
   tasks:
-    - echo "=== CURRENT DIR ==="
     - pwd
 
-    - echo "=== FILES HERE ==="
     - ls -la
 
-    - echo "=== CURRENT COMMIT ==="
     - git log --oneline -n 1
 
-    - echo "=== DEPLOY START ==="
     - export DEPLOYPATH=/home/simpelar/public_html/
     - /bin/cp -R * $DEPLOYPATH
-
-    - echo "=== DEPLOY DONE ==="
+    - echo "Deployment completed successfully!"

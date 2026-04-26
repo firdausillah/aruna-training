@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-  <title>Login | <?= isset($profile->nama) ? $profile->nama : 'Aruna Training' ?></title>
+  <title>Login | <?= isset($profile->nama) ? $profile->nama : 'Simpel PMI' ?></title>
 
     <meta name="description" content="" />
 
@@ -86,9 +86,9 @@
                   <!-- <span class="app-brand-text fs-4 text-body fw-bolder">LOGIN</span> -->
                 <?php else : ?>
                   <span class=" d-flex justify-content-center">
-                    <img src="<?= base_url('assets/img/aruna-logo-gram.png') ?>" width="50">
+                    <img src="<?= base_url('assets/img/logo_pmi2.jpg') ?>" width="50">
                   </span>
-                  <span class="app-brand-text fs-4 text-body fw-bolder">ARUNA TRAINING</span>
+                  <span class="app-brand-text fs-4 text-body fw-bolder">Simpel PMI Kab. Banyuwangi</span>
                 <?php endif ?>
                 </a>
               </div>

@@ -4,7 +4,7 @@
                     <span class="app-brand-logo demo ">
                         <img src="<?= isset($profile->foto) ? base_url('uploads/img/profile/' . $profile->foto) : base_url('assets/img/placeholder.jpg'); ?>" width="100" alt="">
                     </span>
-                    <!-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Aruna Training</span> -->
+                    <!-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Simpel PMI Kab. Banyuwangi</span> -->
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
