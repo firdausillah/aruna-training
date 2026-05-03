@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Registrasi | Simpel PMI Kab. Banyuwangi</title>
+  <title>Registrasi | Simpel PMI </title>
 
   <meta name="description" content="" />
 
@@ -57,7 +57,7 @@
                 <span class=" d-flex justify-content-center">
                   <img src="<?= base_url('assets/img/logo_pmi2.jpg') ?>" width="50">
                 </span>
-                <span class="app-brand-text fs-4 text-body fw-bolder">Simpel PMI Kab. Banyuwangi</span>
+                <span class="app-brand-text fs-4 text-body fw-bolder">Simpel PMI </span>
               </a>
             </div>
             <!-- /Logo -->

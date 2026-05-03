@@ -88,7 +88,7 @@
                   <span class=" d-flex justify-content-center">
                     <img src="<?= base_url('assets/img/logo_pmi2.jpg') ?>" width="50">
                   </span>
-                  <span class="app-brand-text fs-4 text-body fw-bolder">Simpel PMI Kab. Banyuwangi</span>
+                  <span class="app-brand-text fs-4 text-body fw-bolder">Simpel PMI </span>
                 <?php endif ?>
                 </a>
               </div>
